@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 赋能中心 - 工具与学习资源</title>
+    
+    <style>
+        /* ------------------------------------- */
+        /* CSS 样式开始 - 简洁专业风格 */
+        /* ------------------------------------- */
+        
+        /* 颜色变量 */
+        :root {
+            --primary-color: #007bff; /* 主强调色：蓝色 */
+            --secondary-color: #ffc107; /* 次强调色：橙色 */
+            --text-color: #333;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #eee;
+        }
+
+        /* 基础重置与排版 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light); 
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 容器居中 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* -------------------- 1. 顶部导航与搜索 -------------------- */
+        .header-nav {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 站内搜索样式 */
+        .nav-search {
+            display: flex;
+            align-items: center;
+        }
+        .nav-search input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+        .nav-search input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        /* -------------------- 2. 主体内容与模块 -------------------- */
+        .hero-section {
+            text-align: center;
+            padding: 60px 0 40px;
+            background-color: var(--bg-light);
+        }
+        .hero-section h1 {
+            font-size: 2.8em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .hero-section p {
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+
+        .module-section {
+            padding: 40px 0;
+        }
+
+        .module-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-color);
+            position: relative;
+        }
+        .module-section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 工具卡片网格布局 */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* 卡片基础样式 */
+        .resource-card {
+            background-color: var(--bg-white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px; 
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .card-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        .resource-card h3 {
+            font-size: 1.3em;
+            margin: 0;
+            color: var(--text-color);
+        }
+        .resource-card p {
+            font-size: 0.95em;
+            color: #6c757d;
+            flex-grow: 1; /* 确保描述区域占据空间 */
+        }
+
+        /* 行动按钮样式 (CTA) */
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* 底部样式 */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-white);
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        /* ------------------------------------- */
+        /* CSS 样式结束 */
+        /* ------------------------------------- */
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="container navbar">
+            <div class="logo"><a href="#">AI 赋能中心</a></div>
+            
+            <nav class="nav-links">
+                <a href="#tools-section">AI 工具</a>
+                <a href="#research-section">深度研究</a>
+                <a href="#">关于我们</a>
+            </nav>
+            
+            <div class="nav-search">
+                <input type="text" placeholder="站内搜索工具/文章...">
+                </div>
+        </div>
+    </header>
+
+    <main class="resource-main">
+        
+        <section class="hero-section">
+            <div class="container">
+                <h1>一站式 AI 创作与教育资源</h1>
+                <p>探索前沿技术，获取高效工具，驱动您的数字教育创新。</p>
+            </div>
+        </section>
+
+        <section class="module-section" id="tools-section">
+            <div class="container">
+                <h2>AI 创作工具箱</h2>
+                
+                <div class="tool-grid">
+                    
+                    <article class="resource-card" data-category="image">
+                        <div class="card-header">
+                            <span class="card-icon">🖼️</span>
+                            <h3>图片生成与编辑</h3>
+                        </div>
+                        <p>将文字描述转化为高清教学插图、海报及素材，支持一键抠图。</p>
+                        <a href="#" class="cta-button">立即使用</a>
+                    </article>
+                    
+                    <article class="resource-card" data-category="audio">
+                        <div class="card-header">
+                            <span class="card-icon">🔊</span>
+                            <h3>文字转语音 (TTS)</h3>
+                        </div>
+                        <p>提供自然、专业的多语种人声，用于制作有声教材和旁白。</p>
+                        <a href="#" class="cta-button">免费试用</a>
+                    </article>
+
+                    <article class="resource-card" data-category="video">
+                        <div class="card-header">
+                            <span class="card-icon">🎬</span>
+                            <h3>智能短视频生成</h3>
+                        </div>
+                        <p>快速将教案或脚本生成为带字幕和背景音乐的微课视频。</p>
+                        <a href="#" class="cta-button">查看详情</a>
+                    </article>
+
+                    <article class="resource-card" data-category="code">
+                        <div class="card-header">
+                            <span class="card-icon">💻</span>
+                            <h3>AI 编程辅助 (Code Helper)</h3>
+                        </div>
+                        <p>为教育应用提供代码生成、错误调试和编程教学辅助。</p>
+                        <a href="#" class="cta-button">进入平台</a>
+                    </article>
+                    
+                    </div>
+            </div>
+        </section>
+
+        <section class="module-section" id="research-section">
+            <div class="container">
+                <h2>📚 深度学习与研究</h2>
+                
+                <div class="tool-grid">
+                    
+                    <article class="resource-card" data-type="theory">
+                        <div class="card-header">
+                            <span class="card-icon">📄</span>
+                            <h3>AIGC 在课堂评估中的应用</h3>
+                        </div>
+                        <p>最新研究论文，探讨生成式 AI 如何影响作业批改与学习反馈。</p>
+                        <a href="#" class="cta-button">阅读全文</a>
+                    </article>
+                    
+                    <article class="resource-card" data-type="tutorial">
+                        <div class="card-header">
+                            <span class="card-icon">💡</span>
+                            <h3>大模型基础架构入门</h3>
+                        </div>
+                        <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                        <a href="#" class="cta-button">观看教程</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AI 赋能中心. 版权所有. | 资源合作请联系我们。</p>
+        </div>
+    </footer>
+
+</body>
+</html>
