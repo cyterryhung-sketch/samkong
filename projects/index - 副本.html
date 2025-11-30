@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 - 孔德晖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 基本样式与配色 --- */
+        :root {
+            --color-primary: #334155; /* 石墨灰/深海蓝 */
+            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-bg-light: #F8FAFC; /* 极浅灰 */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --font-main: 'Noto Sans SC', 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-primary);
+        }
+        
+        /* --- 2. 头部导航栏 --- */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            transition: color 0.3s;
+            text-align: center;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #2d3c51; /* 深蓝色背景 */
+            color: #ffffff; /* 白色文字 */
+        }
+
+        /* --- 4. 作品集与卡片布局 --- */
+        #projects {
+            background-color: #c8d2a3;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--color-bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+
+        .project-card span {
+            display: block;
+            font-size: 0.9em;
+            color: #1E90FF; /* 蓝色 */
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* --- 返回首页按钮 --- */
+        .back-link {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">孔德晖 Sam / AIdea Edu</div>
+            <div class="nav-links">
+                <a href="../index.html">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
+                <a href="../projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
+                <a href="../workshops/index.html">培训和分享<br><span style="font-size: 0.8em; font-weight: normal;">Workshops</span></a>
+                <a href="../study-visits/index.html">外出学习<br><span style="font-size: 0.8em; font-weight: normal;">Study Visits</span></a>
+                <a href="../resources/index.html">资源<br><span style="font-size: 0.8em; font-weight: normal;">Resources</span></a>
+                <a href="../contact/index.html">联系<br><span style="font-size: 0.8em; font-weight: normal;">Contact</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="projects">
+        <div class="container">
+            <h2>🚀 作品集 / Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <span># 剑桥少儿英语 Cambridge Young Learners' English (YLE)</span>
+                    <h3>剑桥少儿英语练习、资源、官网等</h3>
+                    <p>剑桥少儿英语Starters、Movers、Flyers各级别学习资料和练习</p>
+                    <a href="Cambridge_YLE/index.html" class="cta-button">进入学习</a>
+                </div>
+                <div class="project-card">
+                    <span># KET PET 和 FCE</span>
+                    <h3>剑桥通用英语KET、PET、FCE各级别学习资料</h3>
+                    <p>剑桥英语考试KET、PET、FCE各级别学习资源和练习材料</p>
+                    <a href="#" class="cta-button">进入学习</a>
+                </div>
+                <div class="project-card">
+                    <span>#数码工具</span>
+                    <h3>教育资讯自动化整理工具</h3>
+                    <p>基于 Python 爬虫和数据分析，一键收集并分类教育行业最新动态。</p>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-link">← 返回首页</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

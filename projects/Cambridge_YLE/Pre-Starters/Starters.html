@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>剑桥一级单词学习系统</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#f8f9fa;color:#333;padding:20px;max-width:800px;margin:auto}
+h1{text-align:center;margin-bottom:30px;font-weight:700;color:#ff6f00} /* 更活泼的标题颜色 */
+.nav-tabs{display:flex;justify-content:center;margin-bottom:30px;border-bottom:1px solid #b2ebf2}
+.nav-tab{padding:12px 24px;margin:0 5px;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:18px;color:#00796b;transition:all .3s} /* 调整字号和颜色 */
+.nav-tab.active{color:#00bcd4;border-bottom-color:#00bcd4} /* 调整选中颜色 */
+.content-section{display:none;background:#fff;padding:30px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.08)}
+.content-section.active{display:block}
+.category-btn{padding:12px 22px;margin:8px;background:#e0f2f7;border:none;border-radius:10px;cursor:pointer;font-size:18px;transition:all .3s;color:#006064} /* 调整样式和字号 */
+.category-btn.selected{background:#00bcd4;color:#fff;box-shadow:0 4px 6px rgba(0,188,212,.3)} /* 调整选中颜色 */
+.word-item-row{display:flex;align-items:center;padding:12px 24px;margin:10px;background:#f5f5f5;border-radius:10px;cursor:pointer;font-size:22px;transition:all .3s;border:1px solid #e0e0e0;box-shadow:0 2px 5px rgba(0,0,0,.05)} /* 调整字号和样式 */
+.word-item-row:hover{background:#00bcd4;color:#fff;transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,188,212,.3)}
+.word-en{font-weight:600;margin-right:15px;color:#004d40}          /* 深绿色英文 */
+.word-cn{font-weight:500;margin-left:auto;color:#006064}       /* 蓝色中文 */
+
+#backToTop{position:fixed;bottom:30px;right:30px;padding:12px 16px;background:#ff6f00;color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;box-shadow:0 4px 8px rgba(0,0,0,.2);display:none;z-index:1000} /* 调整样式 */
+#backToTop:hover{background:#e65100}
+
+/* 小测 UI 还原 */
+.quiz-option{padding:16px;background:#e0f7fa;border:1px solid #b2ebf2;border-radius:8px;cursor:pointer;text-align:center;font-size:20px;transition:all .3s;margin:8px;color:#004d40} /* 调整字号和颜色 */
+.quiz-option:hover{border-color:#00bcd4;background:#e0f2f7}
+.quiz-option.correct{background:#e8f5e9;border-color:#4caf50;color:#4caf50} /* 调整颜色 */
+.quiz-option.wrong{background:#ffebee;border-color:#f44336;color:#f44336} /* 调整颜色 */
+.quiz-setup select,.quiz-setup button{padding:10px 14px;font-size:18px;border-radius:8px;border:1px solid #b2ebf2} /* 调整样式 */
+
+/* 拼写横线+字母美化 */
+.spelling-display-lines{display:flex;gap:10px;justify-content:center;margin:25px 0}
+.letter-slot{width:50px;height:65px;border-bottom:4px solid #00bcd4;font-size:32px;font-weight:700;text-align:center;line-height:60px;color:#263238;background:#fff;border-radius:6px;box-shadow:0 3px 6px rgba(0,0,0,.15)} /* 调整字号和样式 */
+.letter-slot.filled{border-color:#4caf50;color:#4caf50} /* 调整颜色 */
+.letter-btn{padding:16px 22px;margin:8px;font-size:24px;font-weight:500;background:#e0f2f7;border:1px solid #b2ebf2;border-radius:10px;cursor:pointer;transition:all .3s;min-width:60px;color:#006064} /* 调整字号和样式 */
+.letter-btn:hover{background:#b2ebf2;border-color:#00bcd4;transform:translateY(-3px)}
+.letter-btn.used{background:#00bcd4;color:#fff;border-color:#00bcd4} /* 调整颜色 */
+
+/* 提交按钮字号 */
+#spellingContent .primary-btn{font-size:24px;padding:12px 26px;border-radius:10px}
+
+/* 答对/答错提示 */
+.message.success{background:#e8f5e9;border:2px solid #4caf50;color:#4caf50;font-size:24px;font-weight:700;text-transform:uppercase;padding:15px;border-radius:8px} /* 调整字号和样式 */
+.message.error{background:#ffebee;border:2px solid #f44336;color:#f44336;font-size:22px;padding:15px;border-radius:8px} /* 调整字号和样式 */
+
+/* 中文标题+卡通喇叭 */
+.spelling-title{font-size:40px;font-weight:800;color:#ff6f00;text-align:center;margin:15px 0 15px} /* 调整字号和颜色 */
+.cartoon-speaker{font-size:48px;background:linear-gradient(135deg,#ffab40,#ff6f00);border:none;border-radius:50%;width:80px;height:80px;cursor:pointer;margin:0 auto 25px;display:block;box-shadow:0 6px 12px rgba(0,0,0,.25);transition:transform .2s} /* 调整样式 */
+.cartoon-speaker:hover{transform:scale(1.15)}
+
+/* 制作人居中 */
+.footer{text-align:center;margin:60px 0 25px;color:#78909c;font-size:18px} /* 调整字号和颜色 */
+
+/* 烟花效果样式 */
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty));
+    opacity: 0;
+  }
+}
+</style>
+</head>
+<body>
+<h1>剑桥一级单词学习系统</h1>
+
+<!-- 级别导航链接 -->
+<div class="level-navigation" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+  <a href="#" class="level-link current" style="padding: 10px 15px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">剑桥一级</a>
+  <a href="../Movers/MoversOnly.html" class="level-link" style="padding: 10px 15px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">剑桥二级</a>
+  <a href="../Movers/Starters_Movers.html" class="level-link" style="padding: 10px 15px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">剑桥一、二级</a>
+  <a href="../Flyers/FlyersOnly.html" class="level-link" style="padding: 10px 15px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">剑桥三级</a>
+  <a href="../Flyers/Starters_Movers_Flyers.html" class="level-link" style="padding: 10px 15px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">剑桥一、二、三级</a>
+</div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('learning')">单词学习</button>
+  <button class="nav-tab" onclick="showSection('quiz')">单词小测</button>
+  <button class="nav-tab" onclick="showSection('spelling')">拼写游戏</button>
+</div>
+
+<!-- 单词学习 -->
+<div id="learning" class="content-section active">
+  <div class="category-selector"><h3>选择分类：</h3><div id="learningCategories"></div></div>
+  <div id="wordList"></div>
+  <button id="backToTop" onclick="scrollToTop()">↑</button>
+</div>
+
+<!-- 单词小测 -->
+<div id="quiz" class="content-section">
+  <div class="quiz-setup">
+    <div><label>选择分类：</label><select id="quizCategory"></select></div>
+    <div style="margin-top:15px;"><label>测试模式：</label>
+      <select id="quizMode"><option value="cn2en">中译英</option><option value="en2cn">英译中</option></select>
+    </div>
+    <div style="margin-top:15px;"><label>选项数量：</label>
+      <select id="quizOptions"><option value="3">3选1</option><option value="4">4选1</option></select>
+    </div>
+    <button class="primary-btn" onclick="startQuiz()" style="background-color: #4CAF50; color: #fff;">开始测试</button>
+    <button class="primary-btn" onclick="startQuiz('review')" style="margin-left: 10px; background-color: #2196F3; color: #fff;">复习错题</button>
+    <button class="primary-btn" onclick="clearQuizWrongWords()" style="margin-left: 10px; background-color: #f44336; color: #fff;">清空错题</button>
+  </div>
+  <div id="quizContent" style="display:none;">
+    <div id="quizQuestion" style="text-align:center;font-size:24px;margin-bottom:20px;"></div>
+    <div id="quizOptionsContainer" class="quiz-options"></div>
+    <div class="stats">
+      已做：<span id="quizTotal">0</span>　正确：<span id="quizCorrect">0</span>　错误：<span id="quizWrong">0</span>　正确率：<span id="quizRate">0%</span>
+    </div>
+    <div id="quizMessage" style="text-align:center; margin-top: 20px;"></div>
+  </div>
+
+  <div id="quizWrongWordsDisplay" style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.08); display: none;">
+    <h3>小测答错的单词：</h3>
+    <ul id="quizWrongWordsList"></ul>
+  </div>
+</div>
+
+<!-- 拼写游戏 -->
+<div id="spelling" class="content-section">
+  <div class="quiz-setup">
+    <div><label class="spell-label">选择分类：</label><select id="spellingCategory" class="spell-select"></select></div>
+    <div style="margin-top:15px;"><label class="spell-label">字母大小写：</label>
+      <select id="letterCase" class="spell-select"><option value="lower">小写</option><option value="upper">大写</option></select>
+    </div>
+    <div style="margin-top:15px;"><label class="spell-label">干扰字母数量：</label>
+      <select id="distractionLetters" class="spell-select"><option value="0">0个</option><option value="1">1个</option><option value="2">2个</option><option value="3">3个</option></select>
+    </div>
+    <div style="margin-top:15px;"><label class="spell-label">从哪个单词开始听写：</label>
+      <select id="startWord" class="spell-select"></select>
+    </div>
+    <button class="primary-btn" onclick="startSpelling()" style="background-color: #4CAF50; color: #fff;">开始拼写</button>
+    <button class="primary-btn" onclick="startSpelling('review')" style="margin-left: 10px; background-color: #2196F3; color: #fff;">复习错题</button>
+    <button class="primary-btn" onclick="clearWrongWords()" style="margin-left: 10px; background-color: #f44336; color: #fff;">清空错题</button>
+  </div>
+  <div id="spellingContent" class="spelling-container" style="display:none;">
+    <div id="spellingWord" class="spelling-title"></div>
+    <button class="cartoon-speaker" onclick="speakWord(currentSpellWord)"> труба</button>
+    <div id="spellingDisplay" class="spelling-display-lines"></div>
+    <div id="letterButtons" class="letter-buttons"></div>
+    <button class="primary-btn" onclick="checkSpelling()">提交答案</button>
+    <div class="stats">
+      已做：<span id="spellTotal">0</span>　正确：<span id="spellCorrect">0</span>　错误：<span id="spellWrong">0</span>　正确率：<span id="spellRate">0%</span>
+    </div>
+    <div id="spellingMessage"></div>
+  </div>
+
+  <div id="wrongWordsDisplay" style="margin-top: 30px; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,.05); display: none;">
+    <h3>答错的单词：</h3>
+    <ul id="wrongWordsList"></ul>
+  </div>
+</div>
+
+<div class="footer">制作人：Kimi AI<br>小学部孔德晖</div>
+
+<script>
+/* ========== 单词库 ========== */
+const wordData = {
+  Animal: {
+    words: ['animal', 'bear', 'bee', 'bird', 'cat', 'chicken', 'cow', 'crocodile', 'dog', 'donkey', 'duck', 'elephant', 'fish', 'frog', 'giraffe', 'goat', 'hippo', 'horse', 'jellyfish', 'lizard', 'monkey', 'mouse/mice', 'pet', 'polar bear', 'sheep', 'snake', 'spider', 'tail', 'tiger', 'zebra', 'zoo' ],
+    meanings: ['动物', '熊', '蜜蜂', '鸟', '猫', '小鸡', '奶牛', '鳄鱼', '狗', '驴', '鸭子', '大象', '鱼', '青蛙', '长颈鹿', '山羊', '河马', '马', '水母', '蜥蜴', '猴子', '老鼠', '宠物', '北极熊', '绵羊', '蛇', '蜘蛛', '尾巴', '老虎', '斑马', '动物园']
+  },
+  'The body and face':{
+    words: ['arm', 'body', 'ear', 'eye', 'face', 'foot/feet', 'hair', 'hand', 'head', 'leg', 'mouth', 'nose', 'smile', ],
+    meanings:[ '手臂', '身体', '耳', '眼', '脸', '脚', '头发', '手', '头', '腿', '嘴', '鼻子', '微笑']
+  },
+  Clothes:{
+    words: ['bag', 'baseball cap', 'boots', 'clothes', 'dress', 'glasses', 'handbag', 'hat', 'jacket', 'jeans', 'shirt', 'shoe', 'shorts', 'skirt', 'sock', 'trousers', 'T-shirt', 'wear', ],
+    meanings:['包', '棒球帽', '靴子', '衣服', '长裙', '眼镜', '手袋', '帽', '夹克', '牛仔裤', '衬衣', '鞋', '短裤', '短裙', '袜', '长裤', '圆领汗衫', '穿']
+  },
+  Colours:{
+    words: ['black','blue','brown','colour','gray','green','grey','orange','pink','purple','red','white','yellow'],
+    meanings:['黑色','蓝色','棕色','颜色','灰色1','绿色','灰色2','桔色','粉红','紫色','红色','白色','黄色']
+  },
+  'Family & friends':{
+    words: ['baby', 'boy', 'brother', 'child', 'children', 'classmate', 'cousin', 'dad', 'family', 'father', 'friend', 'girl', 'grandfather', 'grandma', 'grandmother', 'grandpa', 'kid', 'live', 'man', 'men', 'mother', 'mum', 'old', 'person', 'people', 'sister', 'woman', 'women', 'young'],
+    meanings:[ '婴儿', '男孩', '兄弟', '小孩（单数）', '小孩（复数）', '同学', '堂兄妹', '爸爸D', '家庭', '父亲F', '朋友', '女孩', '祖父f', '奶奶', '祖母', '爷爷p', '小孩K', '居住', '男人（单数）', '男人（复数）', '母亲MO', '妈妈MU', '老的', '人（单数）','人（复数）', '姐妹', '女人（单数）', '女人（复数）', '年轻的']
+  },
+  'Food & drink':{
+    words: ['apple', 'banana', 'bean', 'bread', 'breakfast', 'burger', 'cake', 'candy', 'carrot', 'chicken', 'chips', 'chocolate', 'coconut', 'dinner', 'drink', 'eat', 'egg', 'fish', 'food', 'fries', 'fruit', 'grape', 'ice cream', 'juice', 'kiwi', 'lemon', 'lemonade', 'lime', 'lunch', 'mango', 'meat', 'meatballs', 'milk', 'onion', 'orange', 'pea', 'pear', 'pie', 'pineapple', 'potato', 'rice', 'sausage', 'sweet', 'tomato', 'water', 'watermelon'],
+    meanings:['苹果', '香蕉', '豆子', '面包', '早餐', '汉堡包', '蛋糕', '糖果', '萝卜', '小鸡', '薯片C', '巧克力', '椰子', '晚餐', '饮料/喝', '吃', '鸡蛋', '鱼', '食物', '薯片F', '水果', '葡萄', '雪糕', '汁', '猕猴桃', '柠檬', '柠檬汁', '青柠檬', '午餐', '芒果', '肉类', '肉丸', '牛奶', '洋葱', '桔色', '豌豆', '梨', '馅饼', '菠萝', '土豆', '米饭', '香肠', '糖果', '番茄', '水', '西瓜']
+  },
+  'The home':{
+    words: ['apartment', 'armchair', 'bath', 'bathroom', 'bed', 'bedroom', 'bookcase', 'box', 'camera', 'chair', 'clock', 'computer', 'cupboard', 'desk', 'dining room', 'doll', 'door', 'flat', 'flower', 'garden', 'hall', 'home', 'house', 'kitchen', 'lamp', 'living room', 'mat', 'mirror', 'phone', 'picture', 'radio', 'room', 'rug', 'sleep', 'sofa', 'table', 'television', 'toy', 'tree', 'TV', 'wall', 'watch', 'window'],
+    meanings:['公寓A', '扶手椅子', '沭浴', '浴室', '床', '卧室', '书架', '盒子', '照相机', '椅子', '时钟', '计算机', '食橱', '书桌', '饭厅', '洋娃娃', '门', '公寓F', '花', '花园', '门厅', '家', '房子', '厨房', '台灯', '客厅', '垫子', '镜子', '电话', '图画', '收音机', '房间', '地毯', '睡觉', '沙发', '桌子', '电视', '玩具', '树', '电视', '墙壁', '手表', '窗户']
+  },
+  Materials:{
+    words: ['paper'],
+    meanings:['纸']
+  },
+  Names:{
+    words: ['Alex', 'Alice', 'Ann/Anna', 'Ben', 'Bill', 'Dan', 'Eva', 'Grace', 'Hugo', 'Jill', 'Kim', 'Lucy', 'Mark', 'Matt', 'May', 'Nick', 'Pat', 'Sam', 'Sue', 'Tom'],
+    meanings:['Alex', 'Alice', 'Ann/Anna', 'Ben', 'Bill', 'Dan', 'Eva', 'Grace', 'Hugo', 'Jill', 'Kim', 'Lucy', 'Mark', 'Matt', 'May', 'Nick', 'Pat', 'Sam', 'Sue', 'Tom']
+  },
+  Numbers:{
+    words: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'],
+    meanings:['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十']
+  },
+  'Places & directions':{
+    words: ['behind', 'between', 'bookshop', 'end', 'here', 'in', 'in front of', 'on', 'park', 'playground', 'shop', 'store', 'street', 'there', 'under', 'zoo'],
+    meanings:['在后面', '在两者之间', '书店', '结束', '这里', '在里面', '在前面', '在上面', '公园', '运动场', '商店SH', '商店ST', '街道', '那里', '在下面', '动物园']
+  },
+  'School':{
+    words: ['alphabet','answer','ask','board','book','bookcase','class','classroom','close','colour','computer','correct','crayon','cross','cupboard','desk','door','draw','English','eraser','example','find','floor','keyboard','learn','lesson','line','listen','look','mouse','music','number','open','page','painting','paper','part','pen','pencil','picture','playground','poster','question','read','right','rubber (US eraser)','ruler','school','sentence','sit','spell','stand','story','teacher','tell','tick','understand','wall','window','word','write'],
+    meanings:['字母','回答','问','板','书','书架','班级','教室','关闭','颜色','计算机','纠正','蜡笔','穿过','食橱','书桌','门','画画','英语','橡皮擦E-','例子','发现','地板','键盘','学习','课','线','听','看','鼠标','音乐','数字','打开','页数','油画','纸','部分','钢笔','铅笔','图画','运动场','海报','问题','阅读','正确的','橡皮擦R-','尺子','学校','句子','坐','拼写','站','故事','老师','告诉','打勾','理解','墙壁','窗户','单词','写']
+  },
+  'Sports & leisure':{
+    words: ['badminton', 'ball', 'baseball', 'basketball', 'bat', 'beach', 'bike', 'boat', 'book', 'bounce', 'camera', 'catch ', 'doll', 'draw', 'drive', 'enjoy', 'favourite ', 'fishing', 'fly', 'football', 'game', 'guitar', 'hobby', 'hockey', 'jump', 'kick', 'kite', 'listen', 'music', 'photo', 'piano', 'picture', 'play', 'radio', 'read', 'ride', 'run', 'sing', 'skateboard', 'skateboarding', 'soccer', 'song', 'sport', 'story', 'swim', 'table tennis', 'take a photo/picture', 'television', 'tennis', 'tennis racket', 'throw', 'toy', 'walk', 'watch'],
+    meanings:['羽毛球', '球', '棒球', '篮球', '拍子', '海滩', '自行车', '小船', '书', '跳', '照相机', '接', '洋娃娃', '画画', '驾车', '享受', '最喜欢的', '钓鱼', '苍蝇', '足球', '游戏', '吉他', '爱好', '曲棍球', '跳跃', '踢', '风筝', '听', '音乐', '照片', '钢琴', '图画', '玩耍', '收音机', '阅读', '乘坐', '奔跑', '唱', '溜冰版', '足球', '歌曲', '运动', '故事', '游泳', '乒乓球', '照相', '照相', '电视', '网球', '网球拍', '投', '玩具', '散步', '手表']
+  },
+  Time:{
+    words: ['afternoon', 'birthday', 'clock', 'day', 'evening', 'in', 'morning', 'night', 'today', 'watch', 'year'],
+    meanings:['下午', '生日', '时钟', '白天', '晚上', '在里面', '早晨', '夜晚', '今天', '手表', '年']
+  },
+  Toys:{
+    words: ['alien', 'ball', 'balloon', 'baseball', 'basketball', 'bike', 'board game', 'boat', 'car', 'doll', 'football', 'game', 'helicopter', 'lorry', 'monster', 'motorbike', 'plane', 'robot', 'soccer', 'teddy bear', 'toy', 'train', 'truck'],
+    meanings:['外星人', '球', '气球', '棒球', '篮球', '自行车', '棋类游戏', '小船', '汽车', '洋娃娃', '足球', '游戏', '直升飞机', '卡车L', '怪物', '摩托车', '飞机', '机器人', '足球', '熊', '玩具', '火车', '卡车T']
+  },
+  Transport:{
+    words: ['bike', 'boat', 'bus', 'car', 'drive', 'fly', 'go', 'helicopter', 'lorry', 'plane', 'ride', 'run', 'ship', 'swim', 'train', 'truck'],
+    meanings:['自行车', '小船', '公共汽车', '汽车', '驾车', '苍蝇', '跑', '直升飞机', '卡车L', '飞机', '乘坐', '奔跑', '大船', '游泳', '火车', '卡车T']
+  },
+  Weather:{
+    words: ['sun'],
+    meanings:['太阳']
+  },
+  Work:{
+    words: ['teacher'],
+    meanings:['老师']
+  },
+  'The world around us':{
+    words: ['beach', 'sand', 'sea', 'shell', 'street', 'sun', 'tree', 'water'],
+    meanings:['海滩', '沙子', '海洋', '贝壳', '街道', '太阳', '树', '水']
+  }
+};
+
+/* ========== 语音 ========== */
+function speakWord(w) {
+  const u = new SpeechSynthesisUtterance(w);
+  u.lang = 'en-US';
+  u.rate = 0.8;
+
+  const voices = speechSynthesis.getVoices();
+  // 优先选择美式英语女声 Samantha 或 Siri4
+  u.voice = voices.find(voice =>
+      voice.name === 'Samantha' || voice.name === 'Siri Female 4');
+
+  speechSynthesis.speak(u);
+}
+
+/* ========== 页面切换 ========== */
+function showSection(sec) {
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(sec).classList.add('active');
+  event.target.classList.add('active');
+  
+  // 保存当前活动的模块到 localStorage
+  localStorage.setItem('activeSection', sec);
+}
+
+/* ========== 回到顶部 ========== */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.onscroll = () => {
+  document.getElementById('backToTop').style.display = window.pageYOffset > 200 ? 'block' : 'none';
+};
+
+/* ========== 初始化 ========== */
+let currentCategory = '';
+let quizUsed = [], spellUsed = [];
+let quizStats = {t:0,c:0,w:0}, spellStats = {t:0,c:0,w:0};
+let currentQuizWord = '', currentSpellWord = '';
+let usedLetters = [];
+let spellStart = 0;
+let wrongWords = []; // 新增：用于存储答错的单词
+let currentSpellingMode = 'normal'; // 新增：拼写模式，'normal' 或 'review'
+let quizWrongWords = []; // 新增：用于存储小测答错的单词
+let currentQuizMode = 'normal'; // 新增：小测模式，'normal' 或 'review'
+
+// 新增：用于存储当前选中分类的变量
+let selectedCategory = '';
+
+(function init() {
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+  loadCategories();
+  
+  // 检查是否有保存的分类选择
+  const savedCategory = localStorage.getItem('selectedCategory');
+  const savedSection = localStorage.getItem('activeSection');
+  
+  if (savedCategory) {
+    selectedCategory = savedCategory;
+    document.getElementById('quizCategory').value = savedCategory;
+    document.getElementById('spellingCategory').value = savedCategory;
+    selectLearningCategory(savedCategory);
+  }
+  
+  // 恢复之前活动的模块
+  if (savedSection) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(savedSection).classList.add('active');
+  }
+})();
+
+function loadCategories() {
+  const lc = document.getElementById('learningCategories');
+  const qc = document.getElementById('quizCategory');
+  const sc = document.getElementById('spellingCategory');
+  lc.innerHTML = ''; qc.innerHTML = ''; sc.innerHTML = '';
+  for (const cat in wordData) {
+    const btn = document.createElement('button'); btn.className = 'category-btn'; btn.textContent = cat;
+    btn.onclick = () => selectLearningCategory(cat);
+    lc.appendChild(btn);
+    [qc, sc].forEach(sel => { const o = document.createElement('option'); o.value = cat; o.textContent = cat; sel.appendChild(o); });
+  }
+  qc.onchange = function() { 
+    const cat = this.value;
+    selectedCategory = cat;
+    selectLearningCategory(cat);
+    localStorage.setItem('selectedCategory', cat);
+    startQuiz(); 
+  };
+  sc.onchange = function() { 
+    const cat = this.value;
+    selectedCategory = cat;
+    selectLearningCategory(cat);
+    localStorage.setItem('selectedCategory', cat);
+    fillStartWord(); 
+    startSpelling(); 
+  };
+  fillStartWord();
+}
+
+// 修改：增强的分类选择函数，使所有模块同步
+// 移除旧的 selectCategory 函数，因为已经整合到 selectLearningCategory 中
+
+function selectLearningCategory(cat) {
+  currentCategory = cat;
+  // 更新选中的分类
+  selectedCategory = cat;
+  
+  // 更新单词小测和拼写游戏的分类选择
+  document.getElementById('quizCategory').value = cat;
+  document.getElementById('spellingCategory').value = cat;
+  fillStartWord();
+  
+  document.querySelectorAll('.category-btn').forEach(b => b.classList.toggle('selected', b.textContent === cat));
+  const data = wordData[cat];
+  const list = document.getElementById('wordList'); list.innerHTML = '';
+  data.words.forEach((w, i) => {
+    const row = document.createElement('div'); row.className = 'word-item-row';
+    const en = document.createElement('span'); en.className = 'word-en'; en.textContent = w;
+    const cn = document.createElement('span'); cn.className = 'word-cn'; cn.textContent = data.meanings[i];
+    row.appendChild(en); row.appendChild(cn);
+    row.onclick = () => speakWord(w);
+    list.appendChild(row);
+  });
+}
+
+function fillStartWord() {
+  const cat = document.getElementById('spellingCategory').value;
+  const sel = document.getElementById('startWord');
+  sel.innerHTML = '';
+  if (!cat) return;
+  const data = wordData[cat];
+  data.words.forEach((w, i) => {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = data.meanings[i];   // 只显示中文
+    sel.appendChild(o);
+  });
+}
+
+/* ========== 测试：提交后锁按钮 ========== */
+function startQuiz(mode = 'normal') { // 修改函数签名以接受模式参数
+  // 如果已选择分类，则使用该分类
+  if (selectedCategory && document.getElementById('quizCategory').value === '') {
+    document.getElementById('quizCategory').value = selectedCategory;
+  }
+  
+  quizUsed = [];
+  quizStats = {t:0,c:0,w:0};
+  updateQuizStats();
+  currentQuizMode = mode; // 设置小测模式
+  document.getElementById('quizContent').style.display = 'block';
+
+  // 如果是复习模式且没有错题，则不开始，并提示用户
+  if (currentQuizMode === 'review' && quizWrongWords.length === 0) {
+    alert('当前没有错题可以复习！');
+    document.getElementById('quizContent').style.display = 'none';
+    return;
+  }
+  nextQuiz();
+}
+
+function nextQuiz(isRetry = false) {
+  // 重新启用按钮和清除消息
+  document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => {
+    b.style.pointerEvents = '';
+    b.classList.remove('correct', 'wrong');
+  });
+  document.getElementById('quizQuestion').innerHTML = '';
+  document.getElementById('quizOptionsContainer').innerHTML = '';
+  document.getElementById('quizMessage').innerHTML = ''; // 清除 quizMessage 区域内容
+
+  const cat = document.getElementById('quizCategory').value;
+  const mode = document.getElementById('quizMode').value;
+  const n = +document.getElementById('quizOptions').value;
+  if (!cat) return;
+  const data = wordData[cat];
+  let idx;
+
+  if (isRetry) {
+    if (currentQuizMode === 'review') {
+      const lastWord = quizUsed[quizUsed.length - 1];
+      idx = data.words.indexOf(lastWord);
+    } else {
+      idx = quizUsed[quizUsed.length - 1];
+    }
+  } else if (currentQuizMode === 'review' && quizWrongWords.length > 0) {
+    const availableWrongWords = quizWrongWords.filter(w => !quizUsed.includes(w));
+    if (availableWrongWords.length === 0) {
+      alert('所有小测错题已复习完成！');
+      document.getElementById('quizContent').style.display = 'none';
+      return;
+    }
+    const wordToReview = availableWrongWords[Math.floor(Math.random() * availableWrongWords.length)];
+    idx = data.words.indexOf(wordToReview);
+    quizUsed.push(wordToReview);
+  } else {
+    const avail = data.words.map((_, i) => i).filter(i => !quizUsed.includes(i));
+    if (avail.length === 0) { alert('本分类测试完成！'); return; }
+    idx = avail[Math.floor(Math.random() * avail.length)];
+    quizUsed.push(idx);
+  }
+
+  const word = data.words[idx], meaning = data.meanings[idx];
+  currentQuizWord = word;
+
+  const qDiv = document.getElementById('quizQuestion'), oc = document.getElementById('quizOptionsContainer');
+  oc.innerHTML = '';
+  // Clear previous quiz option styles
+  document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+  });
+
+  const others = data.words.map((w, i) => ({w, m: data.meanings[i], i})).filter(x => x.i !== idx);
+  const shuffle = [...others].sort(() => Math.random() - 0.5).slice(0, n - 1);
+  if (mode === 'cn2en') {
+    qDiv.textContent = `中文：${meaning}`;
+    const opts = [word, ...shuffle.map(x => x.w)].sort(() => Math.random() - 0.5);
+    opts.forEach(opt => {
+      const b = document.createElement('div'); b.className = 'quiz-option'; b.textContent = opt;
+      b.onclick = () => checkQuiz(opt === word, b);
+      oc.appendChild(b);
+    });
+  } else {
+    qDiv.innerHTML = `英文：<span style="cursor:pointer" onclick="speakWord('${word}')">${word} 🔊</span>`;
+    const opts = [meaning, ...shuffle.map(x => x.m)].sort(() => Math.random() - 0.5);
+    opts.forEach(opt => {
+      const b = document.createElement('div'); b.className = 'quiz-option'; b.textContent = opt;
+      b.onclick = () => checkQuiz(opt === meaning, b);
+      oc.appendChild(b);
+    });
+  }
+}
+function checkQuiz(correct, btn) {
+  document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => b.style.pointerEvents = 'none');
+  quizStats.t++;
+  correct ? quizStats.c++ : quizStats.w++;
+  updateQuizStats();
+  btn.classList.add(correct ? 'correct' : 'wrong');
+
+  if (!correct) {
+    const currentWordInEn = document.getElementById('quizMode').value === 'cn2en' ? currentQuizWord : wordData[document.getElementById('quizCategory').value].words[wordData[document.getElementById('quizCategory').value].meanings.indexOf(currentQuizWord)];
+    if (!quizWrongWords.includes(currentWordInEn)) {
+      quizWrongWords.push(currentWordInEn);
+      updateQuizWrongWordsDisplay();
+    }
+    document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => { if (b.textContent === (document.getElementById('quizMode').value === 'cn2en' ? currentQuizWord : wordData[document.getElementById('quizCategory').value].meanings[wordData[document.getElementById('quizCategory').value].words.indexOf(currentQuizWord)])) b.classList.add('correct'); });
+    // 提供再答一次和继续下一题的选项
+    const messageDiv = document.createElement('div');
+    messageDiv.style.marginTop = '15px';
+    messageDiv.innerHTML = `
+      <button class="primary-btn" onclick="nextQuiz(true)" style="margin-right: 10px;">再答一次</button>
+      <button class="primary-btn" onclick="nextQuiz()">继续下一题</button>
+    `;
+    document.getElementById('quizMessage').innerHTML = `<div class="message error">答错了！正确答案是：${document.getElementById('quizMode').value === 'cn2en' ? currentQuizWord : wordData[document.getElementById('quizCategory').value].meanings[wordData[document.getElementById('quizCategory').value].words.indexOf(currentQuizWord)]}</div>`;
+    document.getElementById('quizMessage').appendChild(messageDiv);
+
+    // 在答错后也添加一个延迟，以便用户查看结果和选择操作
+    setTimeout(() => {
+      document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => b.style.pointerEvents = '');
+      // 注意：这里不再直接调用 nextQuiz()，而是依赖用户点击“再答一次”或“继续下一题”
+    }, 1500);
+
+  } else {
+    // 如果是复习模式且答对了，从quizWrongWords中移除这个单词
+    if (currentQuizMode === 'review') {
+      const currentWordInEn = document.getElementById('quizMode').value === 'cn2en' ? currentQuizWord : wordData[document.getElementById('quizCategory').value].words[wordData[document.getElementById('quizCategory').value].meanings.indexOf(currentQuizWord)];
+      const index = quizWrongWords.indexOf(currentWordInEn);
+      if (index > -1) {
+        quizWrongWords.splice(index, 1);
+        updateQuizWrongWordsDisplay();
+      }
+    }
+    document.getElementById('quizMessage').innerHTML = `<div class="message success">答对了！</div>`;
+    setTimeout(() => {
+      document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => b.style.pointerEvents = '');
+      nextQuiz();
+    }, 1500);
+  }
+}
+function updateQuizStats() {
+  document.getElementById('quizTotal').textContent = quizStats.t;
+  document.getElementById('quizCorrect').textContent = quizStats.c;
+  document.getElementById('quizWrong').textContent = quizStats.w;
+  document.getElementById('quizRate').textContent = (quizStats.t ? Math.round(quizStats.c / quizStats.t * 100) : 0) + '%';
+}
+
+function updateQuizWrongWordsDisplay() {
+  const displayDiv = document.getElementById('quizWrongWordsDisplay');
+  const listUl = document.getElementById('quizWrongWordsList');
+  listUl.innerHTML = '';
+  if (quizWrongWords.length > 0) {
+    displayDiv.style.display = 'block';
+    quizWrongWords.forEach(word => {
+      const li = document.createElement('li');
+      li.textContent = word;
+      li.style.fontSize = '24px'; // 调整字号
+      li.style.marginBottom = '8px'; // 增加间距
+      listUl.appendChild(li);
+    });
+  } else {
+    displayDiv.style.display = 'none';
+  }
+}
+
+function updateWrongWordsDisplay() {
+  const displayDiv = document.getElementById('wrongWordsDisplay');
+  const listUl = document.getElementById('wrongWordsList');
+  listUl.innerHTML = '';
+  if (wrongWords.length > 0) {
+    displayDiv.style.display = 'block';
+    wrongWords.forEach(word => {
+      const li = document.createElement('li');
+      li.textContent = word;
+      li.style.fontSize = '24px'; // 调整字号
+      li.style.marginBottom = '8px'; // 增加间距
+      listUl.appendChild(li);
+    });
+  } else {
+    displayDiv.style.display = 'none';
+  }
+}
+
+function clearQuizWrongWords() {
+  quizWrongWords = [];
+  alert('小测错题已清空！');
+  // 重置小测模块的UI
+  document.getElementById('quizContent').style.display = 'none';
+  quizUsed = [];
+  quizStats = {t:0,c:0,w:0};
+  updateQuizStats();
+  currentQuizMode = 'normal';
+  document.querySelectorAll('#quizOptionsContainer .quiz-option').forEach(b => {
+    b.style.pointerEvents = '';
+    b.classList.remove('correct', 'wrong');
+  });
+  document.getElementById('quizQuestion').innerHTML = '';
+  document.getElementById('quizOptionsContainer').innerHTML = '';
+  document.getElementById('quizRate').textContent = '0%';
+}
+
+/* ========== 拼写：横线版+可取消+锁按钮 ========== */
+function startSpelling(mode = 'normal') {
+  // 如果已选择分类，则使用该分类
+  if (selectedCategory && document.getElementById('spellingCategory').value === '') {
+    document.getElementById('spellingCategory').value = selectedCategory;
+    fillStartWord();
+  }
+  
+  spellStart = +document.getElementById('startWord').value;
+  spellUsed = [];
+  spellStats = {t:0,c:0,w:0};
+  updateSpellStats();
+  currentSpellingMode = mode; // 设置拼写模式
+  document.getElementById('spellingContent').style.display = 'block';
+  // 如果是复习模式且没有错题，则不开始，并提示用户
+  if (currentSpellingMode === 'review' && wrongWords.length === 0) {
+    alert('当前没有错题可以复习！');
+    document.getElementById('spellingContent').style.display = 'none';
+    return;
+  }
+  nextSpell();
+}
+
+function nextSpell(isRetry = false) {
+  // 重新启用按钮和清除消息
+  document.querySelectorAll('#letterButtons .letter-btn').forEach(b => {
+    b.style.pointerEvents = '';
+    b.classList.remove('used'); // 确保清除used类
+  });
+  document.querySelector('#spellingContent .primary-btn').style.pointerEvents = '';
+  document.getElementById('spellingMessage').innerHTML = '';
+
+  const cat = document.getElementById('spellingCategory').value;
+  // 修改默认值为大写（符合项目规范）
+  const cas = document.getElementById('letterCase').value || 'lower';
+  const d = +document.getElementById('distractionLetters').value;
+  if (!cat) return;
+  const data = wordData[cat];
+  let idx;
+  // 修正：isReviewMode 现在从全局变量 currentSpellingMode 获取
+  // let isReviewMode = document.querySelector('[onclick="startSpelling(\'review\')"]').classList.contains('active'); // 判断是否是复习模式
+
+  if (isRetry) {
+    // 如果是重试，且是复习模式，则从wrongWords中获取上一个单词
+    if (currentSpellingMode === 'review') {
+      const lastWord = spellUsed[spellUsed.length - 1];
+      idx = data.words.indexOf(lastWord);
+    } else {
+      idx = spellUsed[spellUsed.length - 1]; // 如果是重试，使用上一个单词的索引
+    }
+  } else if (currentSpellingMode === 'review' && wrongWords.length > 0) { // 复习模式
+    // 确保 spellUsed 在复习模式下存储的是单词本身
+    const availableWrongWords = wrongWords.filter(w => !spellUsed.includes(w));
+    if (availableWrongWords.length === 0) {
+      alert('所有错题已复习完成！');
+      // 可以选择重置wrongWords，或者退出复习模式
+      document.getElementById('spellingContent').style.display = 'none';
+      return;
+    }
+    const wordToReview = availableWrongWords[Math.floor(Math.random() * availableWrongWords.length)];
+    idx = data.words.indexOf(wordToReview);
+    spellUsed.push(wordToReview); // 在复习模式下，spellUsed存储的是单词本身
+  } else {
+    idx = spellStart;
+    while (idx < data.words.length && spellUsed.includes(idx)) idx++;
+    if (idx >= data.words.length) { alert('本分类拼写完成！'); return; }
+    spellUsed.push(idx);
+  }
+
+  const word = data.words[idx], meaning = data.meanings[idx];
+  currentSpellWord = word;
+  usedLetters = [];
+
+  // 中文标题 + 卡通喇叭（居中）
+  document.getElementById('spellingWord').className = 'spelling-title';
+  document.getElementById('spellingWord').textContent = meaning;
+  const speakerBtn = document.getElementById('spellingContent').querySelector('.cartoon-speaker');
+  // 使用更通用的喇叭表情符号，避免乱码问题
+  speakerBtn.innerHTML = '📣';
+  speakerBtn.onclick = () => speakWord(currentSpellWord);
+
+  // 横线区域
+  const display = document.getElementById('spellingDisplay');
+  display.innerHTML = '';
+  display.className = 'spelling-display-lines';
+  word.split('').forEach(() => {
+    const slot = document.createElement('div'); slot.className = 'letter-slot';
+    display.appendChild(slot);
+  });
+  document.getElementById('spellingMessage').innerHTML = '';
+
+  // 字母池
+  // 修改为默认大写（符合项目规范）
+  const pool = word.split('').map(l => cas === 'upper' ? l.toUpperCase() : l.toLowerCase());
+  const allL = 'abcdefghijklmnopqrstuvwxyz'.split('').map(l => cas === 'upper' ? l.toUpperCase() : l);
+  const dis = [];
+  while (dis.length < d) {
+    const l = allL[Math.floor(Math.random() * allL.length)];
+    if (!pool.includes(l)) dis.push(l);
+  }
+  const buttons = [...pool, ...dis].sort(() => Math.random() - 0.5);
+  const box = document.getElementById('letterButtons'); box.innerHTML = '';
+  buttons.forEach(l => {
+    const b = document.createElement('button'); b.className = 'letter-btn'; b.textContent = l;
+    b.onclick = () => toggleLetter(l, b);
+    box.appendChild(b);
+  });
+}
+function toggleLetter(l, btn) {
+  const slots = document.querySelectorAll('.letter-slot');
+
+  // 如果按钮已用过：只清空它自己对应的最后一个槽
+  if (btn.classList.contains('used')) {
+    btn.classList.remove('used');
+    // 从后往前找最后一个填入的相同字母
+    for (let i = slots.length - 1; i >= 0; i--) {
+      if (slots[i].textContent === l) {
+        slots[i].textContent = '';
+        slots[i].classList.remove('filled');
+        break;                  // 只清一个
+      }
+    }
+    return;
+  }
+
+  // 首次点击：正常填入空槽
+  for (let s of slots) {
+    if (!s.textContent) { s.textContent = l; s.classList.add('filled'); break; }
+  }
+  btn.classList.add('used');
+}
+function checkSpelling() {
+  const slots = document.querySelectorAll('.letter-slot');
+  const user = Array.from(slots).map(s => s.textContent).join('').toLowerCase();
+  if (user.length !== currentSpellWord.length) return;
+  document.querySelectorAll('#letterButtons .letter-btn').forEach(b => b.style.pointerEvents = 'none');
+  document.querySelector('#spellingContent .primary-btn').style.pointerEvents = 'none';
+
+  const correct = currentSpellWord.toLowerCase();
+  const ok = user === correct;
+  spellStats.t++;
+  ok ? spellStats.c++ : spellStats.w++;
+  updateSpellStats();
+  const m = document.getElementById('spellingMessage');
+  m.innerHTML = `<div class="message ${ok ? 'success' : 'error'}">${ok ? '答对了！' : '答错了！正确答案是：' + currentSpellWord.toUpperCase()}</div>`;
+  if (!ok) {
+    wrongWords.push(currentSpellWord); // 记录答错的单词
+    updateWrongWordsDisplay(); // 更新答错单词列表显示
+    m.innerHTML += `
+      <div style="margin-top: 15px;">
+        <button class="primary-btn" onclick="nextSpell(true)" style="margin-right: 10px;">再答一次</button>
+        <button class="primary-btn" onclick="nextSpell()">继续下一题</button>
+      </div>
+    `;
+  } else {
+    // 答对时显示烟花效果
+    showFireworks();
+    
+    // 如果是复习模式且答对了，从wrongWords中移除这个单词
+    if (currentSpellingMode === 'review') {
+      const index = wrongWords.indexOf(currentSpellWord);
+      if (index > -1) {
+        wrongWords.splice(index, 1);
+        updateWrongWordsDisplay();
+      }
+    }
+    setTimeout(() => {
+      document.querySelectorAll('#letterButtons .letter-btn').forEach(b => b.style.pointerEvents = '');
+      document.querySelector('#spellingContent .primary-btn').style.pointerEvents = '';
+      nextSpell();
+    }, 2000);
+  }
+}
+function updateSpellStats() {
+  document.getElementById('spellTotal').textContent = spellStats.t;
+  document.getElementById('spellCorrect').textContent = spellStats.c;
+  document.getElementById('spellWrong').textContent = spellStats.w;
+  document.getElementById('spellRate').textContent = (spellStats.t ? Math.round(spellStats.c / spellStats.t * 100) : 0) + '%';
+}
+
+function clearWrongWords() {
+  wrongWords = [];
+  updateWrongWordsDisplay();
+  alert('错题已清空！');
+  // 重置拼写模块的UI
+  document.getElementById('spellingContent').style.display = 'none';
+  spellUsed = [];
+  spellStats = {t:0,c:0,w:0};
+  updateSpellStats();
+  currentSpellingMode = 'normal';
+  document.querySelectorAll('#letterButtons .letter-btn').forEach(b => {
+    b.style.pointerEvents = '';
+    b.classList.remove('used');
+  });
+  document.querySelector('#spellingContent .primary-btn').style.pointerEvents = '';
+  document.getElementById('spellingMessage').innerHTML = '';
+}
+
+// 添加烟花效果函数
+function showFireworks() {
+  // 创建烟花容器
+  const container = document.createElement('div');
+  container.className = 'fireworks-container';
+  document.body.appendChild(container);
+
+  // 创建烟花粒子
+  const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff9900'];
+  const particleCount = 100;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // 随机颜色
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    particle.style.backgroundColor = color;
+    
+    // 随机大小
+    const size = Math.random() * 10 + 5;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // 设置随机移动方向和距离
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 200 + 100;
+    const tx = Math.cos(angle) * distance;
+    const ty = Math.sin(angle) * distance;
+    
+    particle.style.setProperty('--tx', `${tx}px`);
+    particle.style.setProperty('--ty', `${ty}px`);
+    
+    // 随机起始位置（屏幕中心附近）
+    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 100;
+    const startY = window.innerHeight / 2 + (Math.random() - 0.5) * 100;
+    
+    particle.style.left = `${startX}px`;
+    particle.style.top = `${startY}px`;
+    
+    container.appendChild(particle);
+  }
+
+  // 2秒后移除烟花效果
+  setTimeout(() => {
+    document.body.removeChild(container);
+  }, 2000);
+}
+
+</script>
+</body>
+</html>

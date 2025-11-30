@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源 - 孔德晖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 基本样式与配色 --- */
+        :root {
+            --color-primary: #334155; /* 石墨灰/深海蓝 */
+            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-bg-light: #F8FAFC; /* 极浅灰 */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --font-main: 'Noto Sans SC', 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-primary);
+        }
+        
+        /* --- 2. 头部导航栏 --- */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            transition: color 0.3s;
+            text-align: center;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #334155; /* 深蓝色背景 */
+            color: #ffffff; /* 白色文字 */
+        }
+
+        /* --- 资源内容 --- */
+        .resources-content {
+            background-color: var(--color-bg-light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .resources-list {
+            text-align: left;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .resources-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* --- 返回首页按钮 --- */
+        .back-link {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+        
+        /* --- 移动端适配样式 --- */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+            
+            h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                padding: 8px 10px;
+                font-size: 0.9em;
+                min-width: 70px;
+            }
+            
+            .resources-content {
+                padding: 20px 15px;
+            }
+            
+            .resources-list {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            h2 {
+                font-size: 1.7em;
+            }
+            
+            .nav-links a {
+                min-width: 60px;
+                font-size: 0.8em;
+                padding: 6px 5px;
+            }
+            
+            .resources-content {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">孔德晖 Sam / AIdea Edu</div>
+            <div class="nav-links">
+                <a href="../index.html#hero">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
+                <a href="../projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
+                <a href="../workshops/index.html">培训和分享<br><span style="font-size: 0.8em; font-weight: normal;">Workshops</span></a>
+                <a href="../study-visits/index.html">外出学习<br><span style="font-size: 0.8em; font-weight: normal;">Study Visits</span></a>
+                <a href="../resources/index.html">资源<br><span style="font-size: 0.8em; font-weight: normal;">Resources</span></a>
+                <a href="../contact/index.html">联系<br><span style="font-size: 0.8em; font-weight: normal;">Contact</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="resources">
+        <div class="container">
+            <h2>🎁 资源下载区</h2>
+            <div class="resources-content">
+                <p style="font-size: 1.1em;">分享高价值模板与工具，提升您的效率：</p>
+                <ul class="resources-list">
+                    <li>✅ <strong>AI 提示词宝典 V2.0</strong> (100+ 条教学专用 Prompt)</li>
+                    <li>✅ <strong>专业级演示文稿模板</strong> (可编辑格式)</li>
+                    <li>✅ <strong>教育技术白皮书合集</strong> (最新趋势分析报告)</li>
+                    <li>✅ <strong>在线学习平台推荐清单</strong> (精选工具与资源)</li>
+                </ul>
+                <a href="../contact/index.html" class="cta-button">输入邮箱，获取免费资源</a>
+            </div>
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-link">← 返回首页</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系方式 - 孔德晖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 基本样式与配色 --- */
+        :root {
+            --color-primary: #334155; /* 石墨灰/深海蓝 */
+            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-bg-light: #F8FAFC; /* 极浅灰 */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --font-main: 'Noto Sans SC', 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-primary);
+        }
+        
+        /* --- 2. 头部导航栏 --- */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            transition: color 0.3s;
+            text-align: center;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #334155; /* 深蓝色背景 */
+            color: #ffffff; /* 白色文字 */
+        }
+
+        /* --- 联系方式内容 --- */
+        .contact-content {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 50px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-info {
+            font-size: 1.2em;
+            margin: 30px 0;
+        }
+
+        .social-icons {
+            font-size: 2em;
+            margin: 30px 0;
+        }
+
+        .social-icons a {
+            color: var(--color-text-light);
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        /* --- 返回首页按钮 --- */
+        .back-link {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+
+        footer {
+            background-color: #222;
+            color: #bbb;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85em;
+        }
+        
+        /* --- 移动端适配样式 --- */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+            
+            h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                padding: 8px 10px;
+                font-size: 0.9em;
+                min-width: 70px;
+            }
+            
+            .contact-content {
+                padding: 30px 20px;
+            }
+            
+            .contact-info {
+                font-size: 1em;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            h2 {
+                font-size: 1.7em;
+            }
+            
+            .nav-links a {
+                min-width: 60px;
+                font-size: 0.8em;
+                padding: 6px 5px;
+            }
+            
+            .contact-content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">孔德晖 Sam / AIdea Edu</div>
+            <div class="nav-links">
+                <a href="../index.html#hero">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
+                <a href="../projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
+                <a href="../workshops/index.html">培训和分享<br><span style="font-size: 0.8em; font-weight: normal;">Workshops</span></a>
+                <a href="../study-visits/index.html">外出学习<br><span style="font-size: 0.8em; font-weight: normal;">Study Visits</span></a>
+                <a href="../resources/index.html">资源<br><span style="font-size: 0.8em; font-weight: normal;">Resources</span></a>
+                <a href="../contact/index.html">联系<br><span style="font-size: 0.8em; font-weight: normal;">Contact</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="contact">
+        <div class="container">
+            <h2>🤝 联系方式 / 合作</h2>
+            <div class="contact-content">
+                <p>欢迎合作：教师培训、主题演讲、项目咨询</p>
+                <div class="contact-info">
+                    <p>📧 邮箱: 15179702@qq.com</p>
+                    <p>🌐 个人网站: https://cyterryhung-sketch.github.io/samkong/</p>
+                    <p>📞 微信: pypsam</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#">[LinkedIn Icon]</a>
+                    <a href="https://github.com/cyterryhung-sketch">[GitHub Icon]</a>
+                    <a href="#">[Twitter Icon]</a>
+                </div>
+                
+            </div>
+
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+        </div>
+    </footer>
+
+</body>
+</html>

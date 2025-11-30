@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星星伴读站 - 剑桥少儿 Starters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 清新配色与基础样式 --- */
+        :root {
+            /* 低饱和度马卡龙色系 */
+            --color-primary-blue: #1E3A8A;   /* 深蓝色 */
+            --color-secondary-green: #FF1493; /* 深色粉红色 (强调色) */
+            --color-bg-light: #F0F8FF;      /* 极浅蓝背景 (大量留白) */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --font-cartoon: 'Quicksand', sans-serif; /* 友好、圆润的主标题字体 */
+            --font-main: 'Noto Sans SC', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            background-color: #FFFFFF; /* 默认纯白背景 */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0; /* 增加留白 */
+        }
+
+        /* --- 2. 头部和导航栏 (Nav) --- */
+        header {
+            background-color: var(--color-primary-blue);
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-family: var(--font-cartoon);
+            font-size: 1.8em;
+            color: white;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        nav ul li a {
+            font-family: var(--font-main);
+            text-decoration: none;
+            color: white;
+            padding: 8px 15px;
+            margin: 0 10px;
+            border-radius: 5px; /* 简化圆角 */
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* 清爽的悬停效果 */
+        }
+        
+        /* --- 3. 主视觉区域 (Hero) --- */
+        #hero {
+            background-color: var(--color-bg-light); /* 浅蓝色背景，视觉清爽 */
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        #hero h1 {
+            font-family: var(--font-cartoon);
+            font-size: 3em;
+            color: var(--color-primary-blue);
+            margin: 0 0 15px 0;
+        }
+
+        #hero p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            color: var(--color-text-dark);
+        }
+
+        /* 剑桥官方链接按钮 (清爽版) */
+        .cambridge-link {
+            display: inline-block;
+            background-color: var(--color-primary-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px; 
+            font-family: var(--font-main);
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cambridge-link:hover {
+            background-color: #2E4A9A;
+        }
+
+        /* --- 4. 个人工具集 (Tools) --- */
+        #tools {
+            background-color: #fff;
+        }
+
+        h2 {
+            font-family: var(--font-cartoon);
+            font-size: 2.2em;
+            text-align: center;
+            color: var(--color-primary-blue);
+            margin-bottom: 50px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; /* 增加间距 */
+        }
+
+        .tool-card {
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-left: 5px solid var(--color-secondary-green); /* 用细条强调色 */
+            border-radius: 8px;
+            padding: 25px;
+            text-align: left;
+            transition: box-shadow 0.3s;
+        }
+
+        .tool-card:hover {
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.1);
+        }
+
+        .tool-card h3 {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            font-size: 1.3em;
+            margin-top: 0;
+        }
+
+        .tool-card a {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--color-secondary-green);
+            font-weight: 700;
+            margin-top: 15px;
+            border-bottom: 2px solid var(--color-secondary-green); /* 清爽的链接样式 */
+        }
+        
+        /* --- 5. 页脚 (Footer) --- */
+        footer {
+            background-color: var(--color-primary-blue);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">🌟 星星伴读站 Starters</div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            
+            <p>这里是剑桥少儿英语 Starters 级别的专业伴学站<br>用高效的方式，帮助孩子轻松通过剑桥一级考试</p>
+            
+            <a 
+                href="https://www.cambridgeenglish.org/exams-and-tests/starters/" 
+                target="_blank" 
+                class="cambridge-link"
+            >
+                访问剑桥官方 Starters 介绍及资源下载
+            </a>
+            <a 
+                href="Starters.html" 
+                class="cambridge-link"
+                style="margin-left: 20px;"
+            >
+                使用内部单词学习系统
+            </a>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2>📚 为什么要学 Starters?</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.1em;">Starters 是孩子们迈向英语学习的第一步。本站资源旨在提供结构化学习路径，涵盖听、说、读、写四个核心技能，让学习不再有压力，乐趣常伴。</p>
+            <p style="font-size: 2em; color: var(--color-secondary-green);">Listening · Speaking · Reading · Writing</p>
+        </div>
+    </section>
+
+    <section id="tools">
+        <div class="container">
+            <h2>🛠️ 个人学习与效率工具集</h2>
+            <p style="text-align: center; margin-bottom: 30px;">这些是我在教育科技领域精心收集和制作的高效学习工具，让备课和学习更省力。</p>
+            
+            <div class="tool-grid">
+                
+                <div class="tool-card">
+                    <h3>AI 智能学习卡片</h3>
+                    <p>一键生成 Starters 核心词汇的可视化卡片，支持多端学习和快速回顾。</p>
+                    <a href="#">立即使用 →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Starters 备考日程模板</h3>
+                    <p>基于科学记忆曲线设计的学习计划，每周目标清晰可见，提高备考效率。</p>
+                    <a href="#">下载模板 →</a>
+                </div>
+                
+                <div class="tool-card">
+                    <h3>口语对话模拟器</h3>
+                    <p>使用 AI 模拟 Starters 口语考试场景，即时反馈发音和语法错误。</p>
+                    <a href="#">开始练习 →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>定制化课程设计工具</h3>
+                    <p>为教育者设计个性化的 Starters 课程大纲和教案，灵活适应不同班级。</p>
+                    <a href="#">查看详情 →</a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>联系我们：如有课程合作或工具建议，请随时联系。</p>
+            <p>邮箱: your_email@example.com | 社交链接 [Icon]</p>
+            <p>&copy; 2025 星星伴读站. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>孔德晖 - 教育科技探索者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 基本样式与配色 --- */
+        :root {
+            --color-primary: #334155; /* 石墨灰/深海蓝 */
+            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-bg-light: #F8FAFC; /* 极浅灰 */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --font-main: 'Noto Sans SC', 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-primary);
+        }
+        
+        /* --- 2. 头部导航栏 --- */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            transition: color 0.3s;
+            text-align: center;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #334155; /* 深蓝色背景 */
+            color: #ffffff; /* 白色文字 */
+        }
+
+        /* --- 3. 英雄区域 (Hero Section) --- */
+        #hero {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        #hero h3 {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-top: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+        
+        /* --- 4. 作品集与卡片布局 --- */
+        #projects {
+            background-color: #fff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--color-bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            color: var(--color-primary);
+            margin-top: 0;
+        }
+
+        .project-card span {
+            display: block;
+            font-size: 0.9em;
+            color: var(--color-secondary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        /* --- 5. 培训模块的表格/列表 --- */
+        #workshops {
+            background-color: var(--color-bg-light);
+        }
+
+        .table-professional {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .table-professional th, .table-professional td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-professional th {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            font-weight: 700;
+        }
+        
+        /* --- 6. 博客区域 --- */
+        .blog-list article {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .blog-list h4 {
+            margin: 0;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .blog-list article:hover h4 {
+            color: #1E90FF; /* 蓝色 */
+        }
+
+        .blog-meta {
+            font-size: 0.85em;
+            color: #777;
+            white-space: nowrap;
+        }
+
+        /* --- 7. 联系与页脚 --- */
+        #contact {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            text-align: center;
+            padding: 60px 0;
+        }
+
+         footer {
+            background-color: #222;
+            color: #bbb;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85em;
+        }
+
+        /* --- 8. 移动端适配样式 --- */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            section {
+                padding: 50px 0;
+            }
+            
+            h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                padding: 8px 10px;
+                font-size: 0.9em;
+                min-width: 70px;
+            }
+            
+            #hero {
+                padding: 60px 0;
+            }
+            
+            #hero h1 {
+                font-size: 2.2em;
+            }
+            
+            #hero h3 {
+                font-size: 1.2em;
+            }
+            
+            .ade-badge-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .ade-badge, .apls-badge {
+                margin: 0 !important;
+                width: 200px !important;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .blog-list article {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .blog-meta {
+                margin-top: 5px;
+                white-space: normal;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            h2 {
+                font-size: 1.7em;
+            }
+            
+            #hero h1 {
+                font-size: 1.8em;
+            }
+            
+            #hero h3 {
+                font-size: 1em;
+            }
+            
+            .nav-links a {
+                min-width: 60px;
+                font-size: 0.8em;
+                padding: 6px 5px;
+            }
+            
+            .ade-badge, .apls-badge {
+                width: 160px !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+            <div class="logo">孔德晖 Sam / AIdea Edu</div>
+            <div class="nav-links">
+                <a href="#hero">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
+                <a href="projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
+                <a href="workshops/index.html">培训和分享<br><span style="font-size: 0.8em; font-weight: normal;">Workshops</span></a>
+                <a href="study-visits/index.html">外出学习<br><span style="font-size: 0.8em; font-weight: normal;">Study Visits</span></a>
+                <a href="resources/index.html">资源<br><span style="font-size: 0.8em; font-weight: normal;">Resources</span></a>
+                <a href="contact/index.html">联系<br><span style="font-size: 0.8em; font-weight: normal;">Contact</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <h1>教育科技探索者</h1>
+            <h3>融合 AI 与数码工具，提升学习效能</h3>
+            <div class="ade-badge-container">
+                <img src="ADE-Signature-Plural-One-Line-Black.png" alt="苹果杰出教育工作者" class="ade-badge" style="width: 250px; height: auto; margin: 15px 0; display: inline-block; vertical-align: middle;">
+                <img src="APLS-Signature-Plural-One-Line-Black.png" alt="苹果专业培训讲师" class="apls-badge" style="width: 300px; height: auto; margin: 15px 0; margin-left: 60px; display: inline-block; vertical-align: middle;">
+            </div>
+            <p>2023届苹果杰出教育工作者（ADE)，苹果专业培训讲师（APLS)、设计和效率提升中的实践应用。</p>
+        
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+        </div>
+    </footer>
+
+</body>
+</html>
