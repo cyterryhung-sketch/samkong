@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>培训和分享 - 孔德晖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. 基本样式与配色 --- */
+        :root {
+            --color-primary: #334155; /* 石墨灰/深海蓝 */
+            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-bg-light: #F8FAFC; /* 极浅灰 */
+            --color-text-dark: #333333;
+            --color-text-light: #ffffff;
+            --color-pink: #ff69b4; /* 深粉红色 */
+            --color-blue: #1e90ff; /* 深蓝色 */
+            --font-main: 'Noto Sans SC', 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-primary);
+        }
+        
+        /* --- 2. 头部导航栏 --- */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-primary);
+            font-weight: 400;
+            transition: color 0.3s;
+            text-align: center;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background-color: #334155; /* 深蓝色背景 */
+            color: #ffffff; /* 白色文字 */
+        }
+
+        /* --- 5. 培训模块的表格/列表 --- */
+        #workshops {
+            background-color: var(--color-bg-light);
+        }
+
+        .table-professional {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .table-professional th, .table-professional td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-professional th {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            font-weight: 700;
+        }
+        
+        /* --- 培训历程样式 --- */
+        .training-container {
+            max-width: 1000px;
+            margin: 00px auto 00px; /* 修改顶部边距从40px减小到20px */
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .summary-box {
+            background-color: #e9f5ff;
+            border-left: 5px solid #334155;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .summary-box p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #334155;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: #000;
+        }
+        
+        /* 年份折叠样式 */
+        details {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        summary {
+            font-size: 1.5em;
+            font-weight: 600;
+            padding: 15px 20px;
+            cursor: pointer;
+            color: #333;
+            outline: none;
+            list-style: none; /* 移除默认的箭头 */
+            display: flex;
+            align-items: center;
+        }
+        
+        summary::before {
+            content: '▶'; /* 自定义展开/收起图标 */
+            margin-right: 10px;
+            font-size: 0.8em;
+            transition: transform 0.2s;
+        }
+        
+        details[open] > summary::before {
+            content: '▼';
+        }
+        
+        .training-list {
+            padding: 10px 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 每行最多两个培训内容 */
+            gap: 20px;
+            align-items: start; /* 使网格项目顶部对齐 */
+        }
+
+        /* 培训卡片样式 */
+        .card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 确保卡片占满高度 */
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 150px;
+            background-color: #e0e0e0; /* 占位符颜色 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9em;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-image-container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image-container .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-image-container .card-image:first-child {
+            opacity: 1;
+        }
+        
+        .card-image-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 2;
+        }
+        
+        .card-image-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        
+        .card-image-indicator.active {
+            background-color: white;
+        }
+        
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-topic {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-size: 1em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        
+        .card-date {
+            font-size: 0.9em;
+            color: #777;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            background: #f7f7f7;
+            padding: 5px 8px;
+            border-radius: 4px;
+            color: #555;
+            flex-direction: column;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .info-item span:first-child {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* 对象、人数、形式信息居中对齐 */
+        .info-label {
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .info-value {
+            text-align: center;
+            width: 100%;
+        }
+        
+        /* 亮点标签样式 */
+        .highlights {
+            margin-bottom: 15px;
+            flex-grow: 1; /* 允许标签区域扩展 */
+        }
+        
+        .highlight-tag {
+            display: inline-block;
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        /* 反思/反馈样式 */
+        .outcome {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 6px;
+            font-style: italic;
+            font-size: 0.9em;
+            border-left: 4px solid #28a745;
+            margin-top: 0; /* 移除之前的自动边距 */
+            flex-grow: 1; /* 允许扩展以填充空间 */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .outcome span {
+            font-weight: bold;
+            margin-right: 5px;
+            flex-shrink: 0; /* 防止标题被压缩 */
+        }
+        
+        /* PDF课件下载链接样式 */
+        .pdf-download {
+            display: inline-block;
+            background-color: #f0f8ff;
+            color: #334155;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid #bee5eb;
+            transition: all 0.3s;
+            align-self: flex-start; /* 左对齐 */
+        }
+        
+        .pdf-download:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        
+        /* 图片灯箱样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .close-lightbox:hover {
+            color: #ccc;
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            font-size: 18px;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .prev-button {
+            left: 20px;
+        }
+        
+        .next-button {
+            right: 20px;
+        }
+        
+        .image-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* --- 返回首页按钮 --- */
+        .back-link {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 12px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+        }
+        
+        /* 月份时间轴样式 */
+        .month-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 0;
+            position: relative;
+        }
+        
+        .month-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #334155;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .month-item {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .month-dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #ccc; /* 默认灰色 */
+            border-radius: 50%;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            top: -10px; /* 将点放在线上 */
+        }
+        
+        /* 有培训的月份显示深粉红色 */
+        .month-dot.has-training {
+            background-color: var(--color-pink);
+        }
+        
+        .month-dot:hover {
+            background-color: var(--color-blue);
+            transform: scale(1.2);
+        }
+        
+        .month-label {
+            font-size: 0.9em;
+            color: #334155;
+        }
+        
+        /* 月份弹窗样式 */
+        .month-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            display: none;
+            z-index: 10;
+        }
+        
+        .month-popup ul {
+            padding-left: 0;
+            margin: 0;
+            text-align: left;
+            list-style: none;
+        }
+        
+        .month-popup li {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            padding: 5px;
+        }
+        
+        .month-popup li:hover {
+            background-color: #f0f8ff;
+            border-radius: 4px;
+        }
+        
+        .month-popup a {
+            text-decoration: none;
+            color: #334155;
+            display: block;
+        }
+        
+        .month-item:hover .month-popup {
+            display: block;
+        }
+        
+        /* 回到时间轴按钮 */
+        .back-to-timeline {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: none;
+            font-size: 0.9em;
+        }
+        
+        .back-to-timeline:hover {
+            background-color: var(--color-blue);
+        }
+        
+        /* 锚点样式 */
+        .month-section {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="8" r="4" stroke="#334155" stroke-width="2"/>
+                    <path d="M5 20C5 16.134 8.13401 13 12 13C15.866 13 19 16.134 19 20" stroke="#334155" stroke-width="2"/>
+                    <path d="M9 9H2V4H9V9Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M22 6H15V4H22V6Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M22 10H15V8H22V10Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                孔德晖 Sam / AIdea Edu
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#hero">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
+                <a href="../projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
+                <a href="../workshops/index.html">培训和分享<br><span style="font-size: 0.8em; font-weight: normal;">Workshops</span></a>
+                <a href="../study-visits/index.html">外出学习<br><span style="font-size: 0.8em; font-weight: normal;">Study Visits</span></a>
+                <a href="../resources/index.html">资源<br><span style="font-size: 0.8em; font-weight: normal;">Resources</span></a>
+                <a href="../contact/index.html">联系<br><span style="font-size: 0.8em; font-weight: normal;">Contact</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="workshops">
+        <div class="container">
+                        <!-- 培训历程部分 -->
+            <div class="training-container">
+                <h2>👩‍🏫 培训历程 (Training Journey)</h2>
+
+                <details open>
+                    <summary style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>📅 2025</span>
+                        <div class="summary-box" style="margin-bottom: 0; background-color: #e9f5ff50; padding: 10px 15px; border-radius: 8px; border-left: 3px solid #334155; font-size: 0.9em; max-width: 70%;">
+                            2025年，我们共完成了 <strong>15场</strong>高质量培训，覆盖了 <strong>600+</strong> 教育工作者和家长。致力于赋能教育创新，助力教师专业成长。
+                        </div>
+                    </summary>
+                    
+                    <!-- 月份时间轴 -->
+                    <div class="month-timeline">
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">1月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">2月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">3月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">4月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">5月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#may">PPT设计培训</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">6月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot"></div>
+                            <div class="month-label">7月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#">暂无培训安排</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">8月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#august-1">2025"智慧计划"项目总结交流会</a></li>
+                                    <li><a href="#august-2">智慧园丁 AI创意工坊</a></li>
+                                    <li><a href="#august-3">新教师AI技能培训</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">9月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#september-1">学术报告厅侧屏培训</a></li>
+                                    <li><a href="#september-2">APLS Back to School Teacher Training 2025</a></li>
+                                    <li><a href="#september-3">国际教师iPad培训</a></li>
+                                    <li><a href="#september-4">AI先锋队分享</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">10月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#october-1">AI编程分享</a></li>
+                                    <li><a href="#october-2">课程改革实验区骨干教师研修分享</a></li>
+                                    <li><a href="#october-3">家长工作坊</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">11月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#november-1">北滘镇命题比赛分享</a></li>
+                                    <li><a href="#november-2">香港CIS_FOLHK工作坊</a></li>
+                                    <li><a href="#november-3">碧桂园集团AI分享</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="month-item">
+                            <div class="month-dot has-training"></div>
+                            <div class="month-label">12月</div>
+                            <div class="month-popup">
+                                <ul>
+                                    <li><a href="#december">杭州云谷培训</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="training-list">
+                        
+                        <div class="card month-section" id="may">
+                            <div class="card-image">
+                                <img src="2025/PPT设计培训.jpg" alt="PPT设计培训" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">PPT设计培训</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2025.05.23</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">小学部教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">8 人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下工作坊</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">新歌剧院</span>
+                                    <span class="highlight-tag">学术报告厅</span>
+                                    <span class="highlight-tag">副屏</span>
+                                    <span class="highlight-tag">平滑/神奇移动</span>
+                                    <span class="highlight-tag">布尔运算</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>老师们认为培训实用。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/PPT设计培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="august-1">
+                            <div class="card-image">
+                                <img src="2025/2025智慧计划项目总结交流会.jpg" alt="2025智慧计划项目总结交流会" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">2025"智慧计划"项目总结交流会</div>
+                                <div class="card-subtitle">中国发展研究基金会 | 苹果公司</div>
+                                <div class="card-date">🗓️ 2025.08.01</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">兰州教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">30 人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">课件优化</span>
+                                    <span class="highlight-tag">图片转视频</span>
+                                    <span class="highlight-tag">豆包</span>
+                                    <span class="highlight-tag">批判性思维实</span>
+                                    <span class="highlight-tag">苹果</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 活动收获：</span>本组教师原创课程获评 "我最喜欢的课"第一名
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/2025智慧计划项目总结交流会.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <!-- 新增培训记录 -->
+                        <div class="card month-section" id="august-2">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊.jpg" alt="智慧园丁 AI创意工坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-2.jpg" alt="智慧园丁 AI创意工坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-3.jpg" alt="智慧园丁 AI创意工坊-3" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-4.jpg" alt="智慧园丁 AI创意工坊-4" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            
+                            <div class="card-content">
+                                <div class="card-topic">智慧园丁 AI创意工坊</div>
+                                <div class="card-subtitle">中国发展研究基金会 | 苹果公司</div>
+                                <div class="card-date">🗓️ 2025.08.17</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">武川、贵州等地区教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">40 人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">AI工具与技能</span>
+                                    <span class="highlight-tag">英语学科培训</span>
+                                    <span class="highlight-tag">ADE</span>
+                                    <span class="highlight-tag">爱就开心</span>
+                                    <span class="highlight-tag">苹果</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>帮助教师使用AI，教育除了有基础性，相关性，重要性，趣味性，应该还有创造性！
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20250818 武川AI技能培训 PPT版本.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="august-3">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/碧桂园集团新教师AI技能培训.jpg" alt="新教师AI技能培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/碧桂园集团新教师AI技能培训-2.jpg" alt="新教师AI技能培训-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">新教师AI技能培训</div>
+                                <div class="card-subtitle">碧桂园教育集团</div>
+                                <div class="card-date">🗓️ 2025.08.25</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">新教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">156人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">培训和分享</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">COSTAR</span>
+                                    <span class="highlight-tag">文生图</span>
+                                    <span class="highlight-tag">工作流</span>
+                                    <span class="highlight-tag">图转视频</span>
+                                    <span class="highlight-tag">AI音乐</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>提前做了问卷调查，晓伟，熊，Ariel, John现场协助。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20250824 碧桂园集团AI技能培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="september-1">
+                            <div class="card-image">
+                                <img src="2025/小学部学术报告厅侧屏培训.jpg" alt="小学部学术报告厅侧屏培训" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">小学部学术报告厅侧屏培训</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2025.09.05</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">小学部教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">8人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">现场</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">比例</span>
+                                    <span class="highlight-tag">图片拉成16:9</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>全部接受培训教师均会使用正确比例播放。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/小学部学术报告厅侧屏培训.pdf" class="pdf-download">📄 无课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="september-2">
+                            <div class="card-image">
+                                <img src="2025/苹果APLS培训2025.jpg" alt="苹果APLS Back to School Teacher Training 2025" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">APLS Back to School Teacher Training 2025</div>
+                                <div class="card-subtitle">苹果公司</div>
+                                <div class="card-date">🗓️ 2025.09.17</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">全球</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">46人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线上培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">Keynote实时视频</span>
+                                    <span class="highlight-tag">Keynot图像画廊</span>
+                                    <span class="highlight-tag">可立拍</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">AI音乐</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>教师很喜欢
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20250917 APLS Back to School Teacher Training 2025.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="september-3">
+                            <div class="card-image">
+                                <img src="2025/20250912 国际教师iPad培训.jpg" alt="小学部国际教师iPad培训" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">小学部国际教师iPad培训</div>
+                                <div class="card-subtitle">小学部</div>
+                                <div class="card-date">🗓️ 2025.09.12</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">全体国际教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">46人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">ASM & MDM</span>
+                                    <span class="highlight-tag">Classroom</span>
+                                    <span class="highlight-tag">小学部数智发展史</span>
+                                    <span class="highlight-tag">Keynote实时视频</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>对感兴趣的老师有很大帮助。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20250912 国际教师iPad培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="september-4">
+                            <div class="card-image">
+                                <img src="2025/20250923分享 AI先锋队秘塔学点啥.png" alt="AI先锋队分享" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">AI先锋队分享</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2025.09.23</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">全体教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">6人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">分享与培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">塔子老师</span>
+                                    <span class="highlight-tag">AI播客</span>
+                                    <span class="highlight-tag">Emoji设置</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>AI播客很实用，AI编程没受到重视。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20250923分享 AI先锋队秘塔学点啥.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="october-1">
+                            <div class="card-image">
+                                <img src="2025/20251029 AI分享.jpg" alt="AI编程分享" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">AI编程分享</div>
+                                <div class="card-subtitle">小学部</div>
+                                <div class="card-date">🗓️ 2025.10.29</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">小学部全体</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">89人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">分享与培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">文字转音乐</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>李琼、晓伟、陈凤飞、王玲、李萍老师分享。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/AI编程分享.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="october-2">
+                            <div class="card-image">
+                                <img src="2025/教育部课程改革实验区骨干教师研修.jpg" alt="课程改革实验区骨干教师研修分享" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">课程改革实验区骨干教师研修分享</div>
+                                <div class="card-subtitle">教育部课程教材研究所</div>
+                                <div class="card-date">🗓️ 2025.10.31</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">兰州七里河领导</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">5人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下分享</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">小学部数智时间轴</span>
+                                    <span class="highlight-tag">理论依据</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">考务软件</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>领导很喜欢。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/教育部课程改革实验区骨干教师研修.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+                        
+                        <div class="card month-section" id="october-3">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/小学部家长工作坊.jpg" alt="小学部家长工作坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/小学部家长工作坊-2.jpg" alt="小学部家长工作坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            
+
+
+                            <div class="card-content">
+                                <div class="card-topic">小学部家长工作坊</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2025.10.31</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">小学部家长</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">40人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下分享与培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">小学部数智时间轴</span>
+                                    <span class="highlight-tag">理论依据</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">豆包</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>家长们100%满意，95%非常满意。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/小学部家长工作坊.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="november-1">
+                            <div class="card-image">
+                                <img src="2025/北滘镇命题比赛分享.jpg" alt="北滘镇命题比赛分享" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">北滘镇命题比赛分享</div>
+                                <div class="card-subtitle">北滘镇教育局</div>
+                                <div class="card-date">🗓️ 2025.11.07</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">北滘镇领导及英语老师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">56人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下分享</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">文生图</span>
+                                    <span class="highlight-tag">AI对话生成软件</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>老师们很喜欢。
+                                </div>
+                        
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20251107 命题设计比赛分享.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+                        
+                        <div class="card month-section" id="november-2">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊.jpg" alt="香港汉基FOLHK工作坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-2.jpg" alt="香港汉基FOLHK工作坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-3.jpg" alt="香港汉基FOLHK工作坊-3" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-4.jpg" alt="香港汉基FOLHK工作坊-4" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">香港汉基FOLHK工作坊</div>
+                                <div class="card-subtitle">苹果公司</div>
+                                <div class="card-date">🗓️ 2025.11.08</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">大湾区教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">42人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下分享与培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">理论依据</span>
+                                    <span class="highlight-tag">英语对话软件</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>和John一起培训，熊和晓伟协助，老师们满意。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/20251108 香港汉基FOLHK工作坊.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+                        
+                         <div class="card month-section" id="november-3">
+                            <div class="card-image">
+                                <img src="2025/20251127 碧桂园集团AI分享.jpg" alt="碧桂园集团AI分享" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">碧桂园集团AI分享</div>
+                                <div class="card-subtitle">碧桂园教育集团</div>
+                                <div class="card-date">🗓️ 2025.11.27</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">集团和校领导</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">24人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线上分享</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">数智制度</span>
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">英语对话软件</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                    <span class="highlight-tag">考务软件</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>领导们希望得到成品。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/碧桂园集团AI分享.pdf" class="pdf-download">📄 无课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card month-section" id="december">
+                         <div class="card-image">
+                             <img src="2025/杭州云谷培训.jpg" alt="杭州云谷培训" style="width:100%; height:100%; object-fit:cover;">
+                         </div>
+                            <div class="card-content">
+                                <div class="card-topic">杭州云谷培训</div>
+                                <div class="card-subtitle">杭州云谷学校</div>
+                                <div class="card-date">🗓️ 2025.12.07</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">全国教师</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">30人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">线下培训</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">AI编程</span>
+                                    <span class="highlight-tag">理论依据</span>
+                                    <span class="highlight-tag">英语对话软件</span>
+                                    <span class="highlight-tag">剑桥少儿英语学习系统</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>希望老师们满意。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="2025/杭州云谷培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+                <details>
+                    <summary>📅 2024</summary>
+                    <div class="training-list">
+                        
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="2025/AI编程分享.jpg" alt="AI编程分享（小学部教务处培训）" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">AI编程分享（小学部教务处培训）</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2024.11.03</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">初中英语组</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">55 人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">示范公开课</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">课堂互动度高</span>
+                                    <span class="highlight-tag">发音矫正技巧</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>老师们反馈积极，学习到了实用的口语教学策略。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="#" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="2025/家长工作坊.jpg" alt="如何有效支持孩子自主学习" style="width:100%; height:100%; object-fit:cover;">
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">如何有效支持孩子自主学习</div>
+                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-date">🗓️ 2024.05.20</div>
+                                
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label">对象：</span>
+                                        <span class="info-value">全体家长</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">人数：</span>
+                                        <span class="info-value">200+ 人</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">形式：</span>
+                                        <span class="info-value">大型讲座</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="highlights">
+                                    <span class="highlight-tag">家庭教育指导</span>
+                                    <span class="highlight-tag">问答环节热烈</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>广受家长好评，提升了家校合作的质量。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="#" class="pdf-download">📄 下载课件(PDF)</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </details>
+
+
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="../index.html" class="back-link">← 返回首页</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 回到时间轴按钮 -->
+    <a href="#timeline" class="back-to-timeline" id="backToTimeline">↑ 回到时间轴</a>
+    
+    <!-- 图片灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-lightbox" id="closeLightbox">&times;</button>
+            <button class="nav-button prev-button" id="prevButton">&#10094;</button>
+            <img id="lightboxImage" src="" alt="">
+            <button class="nav-button next-button" id="nextButton">&#10095;</button>
+            <div class="image-counter" id="imageCounter"></div>
+        </div>
+    </div>
+    
+    <!-- 添加JavaScript实现培训记录按时间排序 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有年份的details元素
+            const allDetails = document.querySelectorAll('details');
+            
+            allDetails.forEach(detail => {
+                // 获取当前年份下的training-list
+                const trainingList = detail.querySelector('.training-list');
+                if (!trainingList) return;
+                
+                // 获取所有的卡片元素
+                const cards = Array.from(trainingList.querySelectorAll('.card'));
+                
+                // 根据日期对卡片进行排序（最新的在最前面）
+                cards.sort((a, b) => {
+                    const dateA = new Date(a.querySelector('.card-date').textContent.replace('🗓️ ', ''));
+                    const dateB = new Date(b.querySelector('.card-date').textContent.replace('🗓️ ', ''));
+                    return dateB - dateA; // 降序排列
+                });
+                
+                // 清空training-list
+                trainingList.innerHTML = '';
+                
+                // 按排序后的顺序重新插入卡片
+                cards.forEach(card => {
+                    trainingList.appendChild(card);
+                });
+            });
+            
+            // 滚动事件监听，控制回到时间轴按钮的显示
+            window.addEventListener('scroll', function() {
+                const backToTimelineBtn = document.getElementById('backToTimeline');
+                if (window.scrollY > 300) {
+                    backToTimelineBtn.style.display = 'block';
+                } else {
+                    backToTimelineBtn.style.display = 'none';
+                }
+            });
+            
+            // 点击回到时间轴按钮时，滚动到时间轴位置
+            document.getElementById('backToTimeline').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.month-timeline').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            });
+            
+            // 图片灯箱功能
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const closeLightbox = document.getElementById('closeLightbox');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+            
+            // 获取所有培训图片
+            const trainingImages = document.querySelectorAll('.card-image img');
+            let currentIndex = 0;
+            
+            // 为每张图片添加点击事件
+            trainingImages.forEach((img, index) => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', () => {
+                    currentIndex = index;
+                    showLightbox();
+                });
+            });
+            
+            // 处理多图片卡片的轮播效果
+            function setupImageCarousels() {
+                const containers = document.querySelectorAll('.card-image-container');
+                
+                containers.forEach(container => {
+                    const images = container.querySelectorAll('.card-image');
+                    if (images.length <= 1) return;
+                    
+                    // 创建指示器容器
+                    const indicatorContainer = document.createElement('div');
+                    indicatorContainer.className = 'card-image-indicators';
+                    
+                    // 为每张图片创建指示器
+                    images.forEach((img, index) => {
+                        const indicator = document.createElement('div');
+                        indicator.className = 'card-image-indicator';
+                        if (index === 0) indicator.classList.add('active');
+                        
+                        indicator.addEventListener('click', () => {
+                            // 隐藏所有图片
+                            images.forEach(i => i.style.opacity = '0');
+                            // 显示当前图片
+                            img.style.opacity = '1';
+                            // 更新指示器
+                            container.querySelectorAll('.card-image-indicator').forEach((ind, i) => {
+                                ind.classList.toggle('active', i === index);
+                            });
+                        });
+                        
+                        indicatorContainer.appendChild(indicator);
+                    });
+                    
+                    container.appendChild(indicatorContainer);
+                    
+                    // 自动轮播
+                    let currentImageIndex = 0;
+                    setInterval(() => {
+                        images[currentImageIndex].style.opacity = '0';
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        images[currentImageIndex].style.opacity = '1';
+                        
+                        // 更新指示器
+                        container.querySelectorAll('.card-image-indicator').forEach((ind, i) => {
+                            ind.classList.toggle('active', i === currentImageIndex);
+                        });
+                    }, 3000);
+                });
+            }
+            
+            // 初始化图片轮播
+            setupImageCarousels();
+            
+            // 显示灯箱
+            function showLightbox() {
+                if (trainingImages.length === 0) return;
+                
+                const img = trainingImages[currentIndex];
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                updateCounter();
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            }
+            
+            // 隐藏灯箱
+            function hideLightbox() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            }
+            
+            // 更新计数器
+            function updateCounter() {
+                imageCounter.textContent = `${currentIndex + 1} / ${trainingImages.length}`;
+            }
+            
+            // 上一张图片
+            function showPrevImage() {
+                if (trainingImages.length === 0) return;
+                currentIndex = (currentIndex - 1 + trainingImages.length) % trainingImages.length;
+                showLightbox();
+            }
+            
+            // 下一张图片
+            function showNextImage() {
+                if (trainingImages.length === 0) return;
+                currentIndex = (currentIndex + 1) % trainingImages.length;
+                showLightbox();
+            }
+            
+            // 事件监听器
+            closeLightbox.addEventListener('click', hideLightbox);
+            prevButton.addEventListener('click', showPrevImage);
+            nextButton.addEventListener('click', showNextImage);
+            
+            // 点击背景关闭灯箱
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    hideLightbox();
+                }
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        hideLightbox();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
