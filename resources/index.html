@@ -9,7 +9,7 @@
         /* --- 1. 基本样式与配色 --- */
         :root {
             --color-primary: #334155; /* 石墨灰/深海蓝 */
-            --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
+            --color-secondary: #14253b; /* 薄荷绿 (强调色) */
             --color-bg-light: #F8FAFC; /* 极浅灰 */
             --color-text-dark: #333333;
             --color-text-light: #ffffff;
@@ -137,7 +137,7 @@
         }
 
         .cta-button:hover {
-            background-color: #7FE57F; /* 浅一点的薄荷绿 */
+            background-color: #173d70; /* 浅一点的薄荷绿 */
         }
         
         /* 左侧导航样式 */
@@ -175,9 +175,52 @@
             transition: background-color 0.3s;
         }
         
-        .sidebar a:hover, .sidebar a.active {
+        .sidebar a:hover {
             background-color: var(--color-bg-light);
             color: var(--color-primary);
+        }
+        
+        .sidebar a.active {
+            background-color: var(--color-primary); /* 深蓝色背景 */
+            color: var(--color-text-light); /* 白色文字 */
+        }
+        
+        /* 折叠菜单样式 */
+        .category-header {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--color-bg-light);
+            border-radius: 4px;
+            border-bottom: 3px solid orange;
+        }
+        
+        .category-header::after {
+            content: "▼";
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+        
+        .category-header.collapsed::after {
+            transform: rotate(-90deg);
+        }
+        
+        .subcategory-list {
+            max-height: 500px;
+            overflow: hidden;
+            padding-left: 15px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-list.collapsed {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 15px;
         }
         
         /* 内容区域样式 */
@@ -222,6 +265,24 @@
             display: flex;
             flex-wrap: nowrap;
             gap: 20px;
+        }
+        
+        /* 网格布局用于在一行显示两个内容项 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .content-grid .content-item {
+            align-self: start;
+        }
+        
+        /* 响应式：在小屏幕上每行只显示一个项目 */
+        @media screen and (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         /* --- 移动端适配样式 --- */
@@ -305,14 +366,15 @@
 
     <section id="resources">
         <div class="container">
-            <h2>🎁 资源下载区</h2>
-            
+      
             <!-- 理论分类模块 -->
             <div class="main-content" style="margin-bottom: 30px;">
                 <!-- 左侧导航 -->
                 <aside class="sidebar">
-                    <h3>理论分类</h3>
-                    <ul>
+                    <div class="category-header collapsed" id="theory-category">
+                        理论分类
+                    </div>
+                    <ul class="subcategory-list collapsed" id="theory-subcategories">
                         <li><a href="#theory-content" class="active">理论依据</a></li>
                         <li><a href="#tech-content">技术原理</a></li>
                     </ul>
@@ -321,16 +383,47 @@
                 <!-- 右侧内容 -->
                 <div class="content-area">
                     <div id="theory-content">
-                        <div class="content-item">
-                            <h4><a href="https://mp.weixin.qq.com/s?__biz=MjM5MzI4ODUzNg==&mid=2651668035&idx=1&sn=53108bfd504a00ff16f11fbb58970c61&chksm=bc9f181c4ff7a30b47bcb6a51ac20d1e831617978b61417305331bd5cba87f0597f9ec532bd1&scene=27" target="_blank">📄 《教师生成式人工智能应用指引（第一版）》</a></h4>
-                            <p>教育部教师队伍建设专家指导委员会正式发布《教师生成式人工智能应用指引（第一版）》</p>
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://mp.weixin.qq.com/s?__biz=MjM5MzI4ODUzNg==&mid=2651668035&idx=1&sn=53108bfd504a00ff16f11fbb58970c61&chksm=bc9f181c4ff7a30b47bcb6a51ac20d1e831617978b61417305331bd5cba87f0597f9ec532bd1&scene=27" target="_blank">📄 《教师生成式人工智能应用指引（第一版）》</a></h4>
+                                <p>教育部教师队伍建设专家指导委员会正式发布《教师生成式人工智能应用指引（第一版）》</p>
+                            </div>
+                            
+                            <div class="content-item">
+                                <h4><a href="https://www.most.gov.cn/kjbgz/202109/t20210926_177063.html" target="_blank">📄 《新一代人工智能伦理规范》</a></h4>
+                                <p>2021年9月25日发布</p>
+                            </div>
+
+                            <div class="content-item">
+                                <h4><a href="https://unesdoc.unesco.org/ark:/48223/pf0000391104" target="_blank">📄 AI competency framework for teachers</a></h4>
+                                <p>联合国教科文组织</p>
+                            </div>
+
+                            <div class="content-item">
+                                <h4><a href="https://www.edu.cn/xxh/focus/zc/202412/t20241202_2644322.shtml" target="_blank">📄 教育部发文：2030年前中小学基本普及人工智能教育</a></h4>
+                                <p>2024年12月2日发布</p>
+                            </div>
+
+
                         </div>
                     </div>
                     
                     <div id="tech-content" style="display: none;">
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
+                                <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                            </div>
+                            
+                            <div class="content-item">
+                                <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
+                                <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                            </div>
+                        </div>
+                        
                         <div class="content-item">
-                            <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
-                            <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                            <h4>📘 理论学习资料</h4>
+                            <p>提供更多关于AI在教育领域应用的理论知识和实践案例。</p>
                         </div>
                     </div>
                 </div>
@@ -340,71 +433,81 @@
             <div class="main-content">
                 <!-- 左侧导航 -->
                 <aside class="sidebar">
-                    <h3>办公软件</h3>
-                    <ul>
+                    <div class="category-header collapsed" id="software-category">
+                        办公软件技巧
+                    </div>
+                    <ul class="subcategory-list collapsed" id="software-subcategories">
                         <li><a href="#word-content" class="active">Word 技巧</a></li>
                         <li><a href="#excel-content">Excel 技巧</a></li>
                         <li><a href="#ppt-content">PowerPoint 技巧</a></li>
+                        <li><a href="#windows-content">Windows 技巧</a></li>
+                        <li><a href="#mac-content">MAC 技巧</a></li>
                     </ul>
                 </aside>
                 
                 <!-- 右侧内容 -->
                 <div class="content-area">
                     <div id="word-content">
-                        <div class="content-item">
-                            <h4><a href="https://www.bilibili.com/video/BV1T54y1673y?spm_id_from=333.788.player.player_end_recommend_autoplay&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 快速删除空白页</a></h4>
-                            <p>在 Word 文档中遇到无法删除的空白页时，可以观看下面的视频教程学习解决方法：</p>
-                        </div>
-                        
-                        <div class="content-item">
-                            <h4><a href="https://www.bilibili.com/video/BV1XT4y127GY/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 邮件合并功能</a></h4>
-                            <p>通过邮件合并功能可以批量生成个性化文档，如成绩单、邀请函等。选择"邮件"选项卡中的"开始邮件合并"，连接数据源并插入合并域，即可实现高效批量处理：</p>
-                        </div>
-                        
-                        <div class="content-item">
-                            <h4><a href="#" target="_blank">📘 格式刷快捷使用</a></h4>
-                            <p>双击格式刷图标可以连续使用格式刷功能，无需多次点击。完成操作后按 ESC 键退出格式刷模式，大大提高格式统一效率。</p>
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1T54y1673y?spm_id_from=333.788.player.player_end_recommend_autoplay&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 快速删除空白页</a></h4>
+                                <p>在 Word 文档中遇到无法删除的空白页时，可以观看下面的视频教程学习解决方法。</p>
+                            </div>
+                            
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1XT4y127GY/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 邮件合并功能</a></h4>
+                                <p>可以批量生成成绩单、邀请函等，即可实现高效批量处理。</p>
+                            </div>
+
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1Wd4y187Gh/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 对比两份Word文档的不同之处</a></h4>
+                                <p>高效地找到两份Word文档的差异，能自动突出显示和汇总两份文档之间的所有修改。</p>
+                            </div>
                         </div>
                     </div>
-                    
                     <div id="excel-content" style="display: none;">
-                        <div class="content-item">
-                            <h4>📊 快速填充数据</h4>
-                            <p>在 Excel 中输入序列数据时，可以输入前两个数据后选中它们，拖拽填充柄即可自动识别规律并填充后续数据，适用于日期、数字序列等。</p>
-                        </div>
-                        
-                        <div class="content-item">
-                            <h4>📊 删除重复项</h4>
-                            <p>使用"数据"选项卡中的"删除重复项"功能可快速清理重复数据。选择数据范围后点击该功能，勾选需要检查的列，系统会自动移除重复行。</p>
-                        </div>
-                        
-                        <div class="content-item">
-                            <h4>📊 条件格式突出显示</h4>
-                            <p>利用条件格式可以高亮显示满足特定条件的单元格。选择数据区域后，在"开始"选项卡中点击"条件格式"，设置规则以可视化方式呈现数据特征。</p>
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV16V4y1n7Kf?spm_id_from=333.788.player.player_end_recommend&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617&trackid=web_related_0.router-related-2206146-5nk2d.1764595308089.834" target="_blank">📘 Excel图表同步到PPT</a></h4>
+                                <p>如题</p>
+                            </div>
+                            <div class="content-item">
+                                <h4><a href="https://space.bilibili.com/2017357708/lists/2876546?type=season" target="_blank">📘 Excel实用技巧合集</a></h4>
+                                <p>如题</p>
+                            </div>
+                           
                         </div>
                     </div>
-                    
                     <div id="ppt-content" style="display: none;">
-                        <div class="content-item">
-                            <h4>📈 幻灯片母版统一设计</h4>
-                            <p>通过幻灯片母版可以统一整个演示文稿的风格。在"视图"选项卡中选择"幻灯片母版"，可以一次性设置所有幻灯片的字体、颜色和布局模板。</p>
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://space.bilibili.com/2017357708/lists/1561187?type=season" target="_blank">📘 PPT实用技巧合集</a></h4>
+                                <p>如题</p>
+                            </div>
                         </div>
-                        
-                        <div class="content-item">
-                            <h4>📈 快速调整对象排列</h4>
-                            <p>选中多个对象后，在"格式"选项卡中使用"对齐"工具可以快速调整对象的位置关系，实现精确对齐和均匀分布，让幻灯片更加美观。</p>
+                    </div>
+                    <div id="windows-content" style="display: none;">
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1LP411N7fy/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Windows快捷键</a></h4>
+                                <p>提高文件管理效率的实用技巧</p>
+                            </div>
                         </div>
-                        
-                        <div class="content-item">
-                            <h4>📈 动画刷复制动画</h4>
-                            <p>使用动画刷可以快速将一个对象的动画效果复制给其他对象。添加动画后点击"动画刷"按钮，然后点击目标对象即可应用相同动画效果。</p>
+                    </div>
+                    <div id="mac-content" style="display: none;">
+                        <div class="content-grid">
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1xu411X7fx/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac快捷键</a></h4>
+                                <p>如题</p>
+                            </div>
+                            <div class="content-item">
+                                <h4><a href="https://www.bilibili.com/video/BV1XLodYbEHF/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac购买后设置</a></h4>
+                                <p>设置完后触控板手势更舒服</p>
+                            </div>
                         </div>
+                       
                     </div>
                 </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="../index.html" class="back-link">← 返回首页</a>
             </div>
         </div>
     </section>
@@ -412,6 +515,30 @@
     <script>
         // 标签切换功能
         document.addEventListener('DOMContentLoaded', function() {
+            // 折叠菜单功能
+            const theoryCategory = document.getElementById('theory-category');
+            const theorySubcategories = document.getElementById('theory-subcategories');
+            const softwareCategory = document.getElementById('software-category');
+            const softwareSubcategories = document.getElementById('software-subcategories');
+            
+            // 默认显示每个模块的第一个标签的内容
+            document.getElementById('theory-content').style.display = 'block';
+            document.getElementById('word-content').style.display = 'block';
+            
+            // 隐藏其他内容
+            document.getElementById('tech-content').style.display = 'none';
+            
+            theoryCategory.addEventListener('click', function() {
+                theorySubcategories.classList.toggle('collapsed');
+                theoryCategory.classList.toggle('collapsed');
+            });
+            
+            softwareCategory.addEventListener('click', function() {
+                softwareSubcategories.classList.toggle('collapsed');
+                softwareCategory.classList.toggle('collapsed');
+            });
+            
+            // 原有的标签切换功能
             const links = document.querySelectorAll('.sidebar a');
             
             links.forEach(link => {
@@ -428,15 +555,17 @@
                     this.classList.add('active');
                     
                     // 根据所属模块隐藏对应的内容
-                    if (parentSidebar.querySelector('h3').textContent === '理论分类') {
+                    if (this.closest('#theory-subcategories')) {
                         // 隐藏理论分类模块的所有内容
                         document.getElementById('theory-content').style.display = 'none';
                         document.getElementById('tech-content').style.display = 'none';
-                    } else if (parentSidebar.querySelector('h3').textContent === '办公软件') {
+                    } else if (this.closest('#software-subcategories')) {
                         // 隐藏办公软件模块的所有内容
                         document.getElementById('word-content').style.display = 'none';
                         document.getElementById('excel-content').style.display = 'none';
                         document.getElementById('ppt-content').style.display = 'none';
+                        document.getElementById('windows-content').style.display = 'none';
+                        document.getElementById('mac-content').style.display = 'none';
                     }
                     
                     // 显示对应的内容

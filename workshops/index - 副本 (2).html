@@ -28,7 +28,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 100%;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -118,7 +118,7 @@
         
         /* --- 培训历程样式 --- */
         .training-container {
-            max-width: 1000px;
+            max-width: 1600px;
             margin: 00px auto 00px; /* 修改顶部边距从40px减小到20px */
             background: #fff;
             padding: 30px;
@@ -179,7 +179,7 @@
         .training-list {
             padding: 10px 20px 20px;
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 每行最多两个培训内容 */
+            grid-template-columns: repeat(3, 1fr); /* 每行最多三个培训内容 */
             gap: 20px;
             align-items: start; /* 使网格项目顶部对齐 */
         }
@@ -211,6 +211,61 @@
             justify-content: center;
             color: #666;
             font-size: 0.9em;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-image-container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image-container .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-image-container .card-image:first-child {
+            opacity: 1;
+        }
+        
+        .card-image-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 2;
+        }
+        
+        .card-image-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        
+        .card-image-indicator.active {
+            background-color: white;
         }
         
         .card-content {
@@ -337,6 +392,88 @@
             transform: translateY(-2px);
         }
         
+        /* 图片灯箱样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .close-lightbox:hover {
+            color: #ccc;
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            font-size: 18px;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .prev-button {
+            left: 20px;
+        }
+        
+        .next-button {
+            right: 20px;
+        }
+        
+        .image-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+        }
+        
         /* --- 返回首页按钮 --- */
         .back-link {
             display: inline-block;
@@ -421,6 +558,12 @@
             transform: scale(1.2);
         }
         
+        /* 当鼠标悬停在月份项目上时，圆点变色 */
+        .month-item:hover .month-dot {
+            background-color: var(--color-blue);
+            transform: scale(1.2);
+        }
+        
         .month-label {
             font-size: 0.9em;
             color: #334155;
@@ -499,16 +642,7 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">
-                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="8" r="4" stroke="#334155" stroke-width="2"/>
-                    <path d="M5 20C5 16.134 8.13401 13 12 13C15.866 13 19 16.134 19 20" stroke="#334155" stroke-width="2"/>
-                    <path d="M9 9H2V4H9V9Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M22 6H15V4H22V6Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M22 10H15V8H22V10Z" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-                孔德晖 Sam / AIdea Edu
-            </div>
+            <div class="logo">孔德晖 Sam / AIdea Edu</div>
             <div class="nav-links">
                 <a href="../index.html#hero">个人<br><span style="font-size: 0.8em; font-weight: normal;">Personal</span></a>
                 <a href="../projects/index.html">作品集<br><span style="font-size: 0.8em; font-weight: normal;">Projects</span></a>
@@ -541,7 +675,7 @@
                             <div class="month-label">1月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -550,7 +684,7 @@
                             <div class="month-label">2月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -559,7 +693,7 @@
                             <div class="month-label">3月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -568,7 +702,7 @@
                             <div class="month-label">4月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -577,7 +711,7 @@
                             <div class="month-label">5月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#may">PPT设计培训</a></li>
+                                    <li><a href="#may">· PPT设计培训</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -586,7 +720,7 @@
                             <div class="month-label">6月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -595,7 +729,7 @@
                             <div class="month-label">7月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#">暂无培训安排</a></li>
+                                    <li><a href="#">· 暂无培训安排</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -604,9 +738,9 @@
                             <div class="month-label">8月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#august-1">2025"智慧计划"项目总结交流会</a></li>
-                                    <li><a href="#august-2">智慧园丁 AI创意工坊</a></li>
-                                    <li><a href="#august-3">新教师AI技能培训</a></li>
+                                    <li><a href="#august-1">· 2025"智慧计划"项目总结交流会</a></li>
+                                    <li><a href="#august-2">· 智慧园丁 AI创意工坊</a></li>
+                                    <li><a href="#august-3">· 新教师AI技能培训</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -615,10 +749,10 @@
                             <div class="month-label">9月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#september-1">学术报告厅侧屏培训</a></li>
-                                    <li><a href="#september-2">APLS Back to School Teacher Training 2025</a></li>
-                                    <li><a href="#september-3">国际教师iPad培训</a></li>
-                                    <li><a href="#september-4">AI先锋队分享</a></li>
+                                    <li><a href="#september-1">· 学术报告厅侧屏培训</a></li>
+                                    <li><a href="#september-2">· APLS Back to School Teacher Training 2025</a></li>
+                                    <li><a href="#september-3">· 国际教师iPad培训</a></li>
+                                    <li><a href="#september-4">· AI先锋队分享</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -627,9 +761,9 @@
                             <div class="month-label">10月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#october-1">AI编程分享</a></li>
-                                    <li><a href="#october-2">课程改革实验区骨干教师研修分享</a></li>
-                                    <li><a href="#october-3">家长工作坊</a></li>
+                                    <li><a href="#october-1">· AI编程分享</a></li>
+                                    <li><a href="#october-2">· 课程改革实验区骨干教师研修分享</a></li>
+                                    <li><a href="#october-3">· 家长工作坊</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -638,9 +772,9 @@
                             <div class="month-label">11月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#november-1">北滘镇命题比赛分享</a></li>
-                                    <li><a href="#november-2">香港CIS_FOLHK工作坊</a></li>
-                                    <li><a href="#november-3">碧桂园集团AI分享</a></li>
+                                    <li><a href="#november-1">· 北滘镇命题比赛分享</a></li>
+                                    <li><a href="#november-2">· 香港CIS_FOLHK工作坊</a></li>
+                                    <li><a href="#november-3">· 碧桂园集团AI分享</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -649,7 +783,7 @@
                             <div class="month-label">12月</div>
                             <div class="month-popup">
                                 <ul>
-                                    <li><a href="#december">杭州云谷培训</a></li>
+                                    <li><a href="#december">· 杭州云谷培训</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -663,7 +797,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">PPT设计培训</div>
-                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-subtitle">广东碧桂园学校</div>
                                 <div class="card-date">🗓️ 2025.05.23</div>
                                 
                                 <div class="info-grid">
@@ -694,7 +828,7 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/PPT设计培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/PPT设计培训.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
@@ -735,15 +869,27 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/2025智慧计划项目总结交流会.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/2025智慧计划项目总结交流会.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                         <!-- 新增培训记录 -->
                         <div class="card month-section" id="august-2">
-                            <div class="card-image">
-                                <img src="2025/20250818 武川AI技能培训.jpg" alt="智慧园丁 AI创意工坊" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊.jpg" alt="智慧园丁 AI创意工坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-2.jpg" alt="智慧园丁 AI创意工坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-3.jpg" alt="智慧园丁 AI创意工坊-3" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250818 智慧园丁 AI创意工坊-4.jpg" alt="智慧园丁 AI创意工坊-4" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
+                            
                             <div class="card-content">
                                 <div class="card-topic">智慧园丁 AI创意工坊</div>
                                 <div class="card-subtitle">中国发展研究基金会 | 苹果公司</div>
@@ -777,13 +923,18 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/20250818 武川AI技能培训 PPT版本.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20250818 武川AI技能培训 PPT版本.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="august-3">
-                            <div class="card-image">
-                                <img src="2025/碧桂园集团新教师AI技能培训.jpg" alt="新教师AI技能培训" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/碧桂园集团新教师AI技能培训.jpg" alt="新教师AI技能培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/碧桂园集团新教师AI技能培训-2.jpg" alt="新教师AI技能培训-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">新教师AI技能培训</div>
@@ -819,17 +970,20 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/20250824 碧桂园集团AI技能培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20250824 碧桂园集团AI技能培训.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="september-1">
-                            <div class="card-image">
-                                <img src="2025/小学部学术报告厅侧屏培训.jpg" alt="小学部学术报告厅侧屏培训" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/小学部学术报告厅侧屏培训.jpg" alt="小学部学术报告厅侧屏培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">小学部学术报告厅侧屏培训</div>
-                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-subtitle">广东碧桂园学校</div>
                                 <div class="card-date">🗓️ 2025.09.05</div>
                                 
                                 <div class="info-grid">
@@ -857,13 +1011,13 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/小学部学术报告厅侧屏培训.pdf" class="pdf-download">📄 无课件(PDF)</a>
+                                <a href="2025/小学部学术报告厅侧屏培训.pdf" class="pdf-download" target="_blank">📄 无课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="september-2">
                             <div class="card-image">
-                                <img src="2025/苹果APLS培训2025.jpg" alt="苹果APLS Back to School Teacher Training 2025" style="width:100%; height:100%; object-fit:cover;">
+                                <img src="2025/20250917 APLS Back to School Teacher Training 2025.jpg" alt="苹果APLS Back to School Teacher Training 2025" style="width:100%; height:100%; object-fit:cover;">
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">APLS Back to School Teacher Training 2025</div>
@@ -898,13 +1052,18 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/苹果APLS培训2025.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20250917 APLS Back to School Teacher Training 2025.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="september-3">
-                            <div class="card-image">
-                                <img src="2025/小学部国际教师iPad培训.jpg" alt="小学部国际教师iPad培训" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20250912 国际教师iPad培训.jpg" alt="小学部国际教师iPad培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250912 国际教师iPad培训-2.jpg" alt="小学部国际教师iPad培训-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">小学部国际教师iPad培训</div>
@@ -938,17 +1097,22 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/国际教师iPad培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20250912 国际教师iPad培训.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
-                        </div>
+                        }
 
                         <div class="card month-section" id="september-4">
-                            <div class="card-image">
-                                <img src="2025/AI先锋队分享.jpg" alt="AI先锋队分享" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20250923分享 AI先锋队秘塔学点啥-1.png" alt="AI先锋队分享-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20250923分享 AI先锋队秘塔学点啥-2.jpg" alt="AI先锋队分享-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">AI先锋队分享</div>
-                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-subtitle">广东碧桂园学校</div>
                                 <div class="card-date">🗓️ 2025.09.23</div>
                                 
                                 <div class="info-grid">
@@ -978,7 +1142,7 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/AI先锋队分享.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20250923分享 AI先锋队秘塔学点啥.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
@@ -1016,16 +1180,21 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/AI编程分享.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/AI编程分享.pdf" class="pdf-download" target="_blank">📄 无课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="october-2">
-                            <div class="card-image">
-                                <img src="2025/教育部课程改革实验区骨干教师研修.jpg" alt="教育部课程教材研究所-课程改革实验区骨干教师研修分享" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20251031 课程改革实验区骨干教师研修分享.jpg" alt="课程改革实验区骨干教师研修分享-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251031 课程改革实验区骨干教师研修分享-2.jpg" alt="课程改革实验区骨干教师研修分享-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
-                                <div class="card-topic">教育部课程教材研究所-课程改革实验区骨干教师研修分享</div>
+                                <div class="card-topic">课程改革实验区骨干教师研修分享</div>
                                 <div class="card-subtitle">教育部课程教材研究所</div>
                                 <div class="card-date">🗓️ 2025.10.31</div>
                                 
@@ -1057,17 +1226,25 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/教育部课程改革实验区骨干教师研修.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20251031 课程改革实验区骨干教师研修分享.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
                         
                         <div class="card month-section" id="october-3">
-                            <div class="card-image">
-                                <img src="2025/小学部家长工作坊.jpg" alt="小学部家长工作坊" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/小学部家长工作坊.jpg" alt="小学部家长工作坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/小学部家长工作坊-2.jpg" alt="小学部家长工作坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
+                            
+
+
                             <div class="card-content">
                                 <div class="card-topic">小学部家长工作坊</div>
-                                <div class="card-subtitle">碧桂园学校</div>
+                                <div class="card-subtitle">广东碧桂园学校</div>
                                 <div class="card-date">🗓️ 2025.10.31</div>
                                 
                                 <div class="info-grid">
@@ -1098,13 +1275,21 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/小学部家长工作坊.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/小学部家长工作坊.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="november-1">
-                            <div class="card-image">
-                                <img src="2025/北滘镇命题比赛分享.jpg" alt="北滘镇命题比赛分享" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20251107 命题设计比赛分享.jpg" alt="北滘镇命题比赛分享-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251107 命题设计比赛分享-2.jpg" alt="北滘镇命题比赛分享-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251107 命题设计比赛分享-3.jpg" alt="北滘镇命题比赛分享-3" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">北滘镇命题比赛分享</div>
@@ -1137,13 +1322,24 @@
                                 </div>
                         
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/北滘镇命题比赛分享.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20251107 命题设计比赛分享.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
                         
                         <div class="card month-section" id="november-2">
-                            <div class="card-image">
-                                <img src="2025/20251108 香港汉基FOLHK工作坊.jpg" alt="香港CIS_FOLHK工作坊" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊.jpg" alt="香港汉基FOLHK工作坊-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-2.jpg" alt="香港汉基FOLHK工作坊-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-3.jpg" alt="香港汉基FOLHK工作坊-3" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src="2025/20251108 香港汉基FOLHK工作坊-4.jpg" alt="香港汉基FOLHK工作坊-4" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">香港汉基FOLHK工作坊</div>
@@ -1177,13 +1373,16 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/香港CIS_FOLHK工作坊.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/20251108 香港汉基FOLHK工作坊.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
                         
                          <div class="card month-section" id="november-3">
-                            <div class="card-image">
-                                <img src="2025/20251127 碧桂园集团AI分享.jpg" alt="碧桂园集团AI分享" style="width:100%; height:100%; object-fit:cover;">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/20251127 碧桂园集团AI分享.jpg" alt="碧桂园集团AI分享-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                
                             </div>
                             <div class="card-content">
                                 <div class="card-topic">碧桂园集团AI分享</div>
@@ -1218,14 +1417,19 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/碧桂园集团AI分享.pdf" class="pdf-download">📄 无课件(PDF)</a>
+                                <a href="2025/碧桂园集团AI分享.pdf" class="pdf-download" target="_blank">📄 无课件(PDF)</a>
                             </div>
                         </div>
 
                         <div class="card month-section" id="december">
-                         <div class="card-image">
-                             <img src="2025/杭州云谷培训.jpg" alt="杭州云谷培训" style="width:100%; height:100%; object-fit:cover;">
-                         </div>
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="2025/杭州云谷培训.jpg" alt="杭州云谷培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="card-image">
+                                    <img src=".jpg" alt="杭州云谷培训-2" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
                             <div class="card-content">
                                 <div class="card-topic">杭州云谷培训</div>
                                 <div class="card-subtitle">杭州云谷学校</div>
@@ -1258,91 +1462,14 @@
                                 </div>
                                 
                                 <!-- PDF课件下载链接占位 -->
-                                <a href="2025/杭州云谷培训.pdf" class="pdf-download">📄 下载课件(PDF)</a>
+                                <a href="2025/杭州云谷培训.pdf" class="pdf-download" target="_blank">📄 下载课件(PDF)</a>
                             </div>
                         </div>
 
                     </div>
                 </details>
 
-                <details>
-                    <summary>📅 2024</summary>
-                    <div class="training-list">
-                        
-                        <div class="card">
-                            <div class="card-image"> [ Image of Open Class ] </div>
-                            <div class="card-content">
-                                <div class="card-topic">AI编程分享（小学部教务处培训）</div>
-                                <div class="card-subtitle">碧桂园学校</div>
-                                <div class="card-date">🗓️ 2024.11.03</div>
-                                
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">对象：</span>
-                                        <span class="info-value">初中英语组</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">人数：</span>
-                                        <span class="info-value">55 人</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">形式：</span>
-                                        <span class="info-value">示范公开课</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="highlights">
-                                    <span class="highlight-tag">课堂互动度高</span>
-                                    <span class="highlight-tag">发音矫正技巧</span>
-                                </div>
-
-                                <div class="outcome">
-                                    <span>💭 培训反思：</span>老师们反馈积极，学习到了实用的口语教学策略。
-                                </div>
-                                
-                                <!-- PDF课件下载链接占位 -->
-                                <a href="#" class="pdf-download">📄 下载课件(PDF)</a>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-image"> [ Image of Parent Workshop ] </div>
-                            <div class="card-content">
-                                <div class="card-topic">如何有效支持孩子自主学习</div>
-                                <div class="card-subtitle">碧桂园学校</div>
-                                <div class="card-date">🗓️ 2024.05.20</div>
-                                
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">对象：</span>
-                                        <span class="info-value">全体家长</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">人数：</span>
-                                        <span class="info-value">200+ 人</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">形式：</span>
-                                        <span class="info-value">大型讲座</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="highlights">
-                                    <span class="highlight-tag">家庭教育指导</span>
-                                    <span class="highlight-tag">问答环节热烈</span>
-                                </div>
-
-                                <div class="outcome">
-                                    <span>💭 培训反思：</span>广受家长好评，提升了家校合作的质量。
-                                </div>
-                                
-                                <!-- PDF课件下载链接占位 -->
-                                <a href="#" class="pdf-download">📄 下载课件(PDF)</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </details>
+                
 
 
             </div>
@@ -1355,6 +1482,17 @@
     
     <!-- 回到时间轴按钮 -->
     <a href="#timeline" class="back-to-timeline" id="backToTimeline">↑ 回到时间轴</a>
+    
+    <!-- 图片灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-lightbox" id="closeLightbox">&times;</button>
+            <button class="nav-button prev-button" id="prevButton">&#10094;</button>
+            <img id="lightboxImage" src="" alt="">
+            <button class="nav-button next-button" id="nextButton">&#10095;</button>
+            <div class="image-counter" id="imageCounter"></div>
+        </div>
+    </div>
     
     <!-- 添加JavaScript实现培训记录按时间排序 -->
     <script>
@@ -1372,13 +1510,25 @@
                 
                 // 根据日期对卡片进行排序（最新的在最前面）
                 cards.sort((a, b) => {
-                    const dateA = new Date(a.querySelector('.card-date').textContent.replace('🗓️ ', ''));
-                    const dateB = new Date(b.querySelector('.card-date').textContent.replace('🗓️ ', ''));
+                    const dateTextA = a.querySelector('.card-date').textContent.replace('🗓️ ', '');
+                    const dateTextB = b.querySelector('.card-date').textContent.replace('🗓️ ', '');
+                    
+                    // 使用更严格的日期解析
+                    const dateA = new Date(dateTextA);
+                    const dateB = new Date(dateTextB);
+                    
+                    // 如果日期解析失败，则按字符串比较
+                    if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+                        return dateTextB.localeCompare(dateTextA);
+                    }
+                    
                     return dateB - dateA; // 降序排列
                 });
                 
                 // 清空training-list
-                trainingList.innerHTML = '';
+                while (trainingList.firstChild) {
+                    trainingList.removeChild(trainingList.firstChild);
+                }
                 
                 // 按排序后的顺序重新插入卡片
                 cards.forEach(card => {
@@ -1402,6 +1552,141 @@
                 document.querySelector('.month-timeline').scrollIntoView({ 
                     behavior: 'smooth' 
                 });
+            });
+            
+            // 图片灯箱功能
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const closeLightbox = document.getElementById('closeLightbox');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const imageCounter = document.getElementById('imageCounter');
+            
+            // 获取所有培训图片
+            const trainingImages = document.querySelectorAll('.card-image img');
+            let currentIndex = 0;
+            
+            // 为每张图片添加点击事件
+            trainingImages.forEach((img, index) => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', () => {
+                    currentIndex = index;
+                    showLightbox();
+                });
+            });
+            
+            // 处理多图片卡片的轮播效果
+            function setupImageCarousels() {
+                const containers = document.querySelectorAll('.card-image-container');
+                
+                containers.forEach(container => {
+                    const images = container.querySelectorAll('.card-image');
+                    if (images.length <= 1) return;
+                    
+                    // 创建指示器容器
+                    const indicatorContainer = document.createElement('div');
+                    indicatorContainer.className = 'card-image-indicators';
+                    
+                    // 为每张图片创建指示器
+                    images.forEach((img, index) => {
+                        const indicator = document.createElement('div');
+                        indicator.className = 'card-image-indicator';
+                        if (index === 0) indicator.classList.add('active');
+                        
+                        indicator.addEventListener('click', () => {
+                            // 隐藏所有图片
+                            images.forEach(i => i.style.opacity = '0');
+                            // 显示当前图片
+                            img.style.opacity = '1';
+                            // 更新指示器
+                            container.querySelectorAll('.card-image-indicator').forEach((ind, i) => {
+                                ind.classList.toggle('active', i === index);
+                            });
+                        });
+                        
+                        indicatorContainer.appendChild(indicator);
+                    });
+                    
+                    container.appendChild(indicatorContainer);
+                    
+                    // 自动轮播
+                    let currentImageIndex = 0;
+                    setInterval(() => {
+                        images[currentImageIndex].style.opacity = '0';
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        images[currentImageIndex].style.opacity = '1';
+                        
+                        // 更新指示器
+                        container.querySelectorAll('.card-image-indicator').forEach((ind, i) => {
+                            ind.classList.toggle('active', i === currentImageIndex);
+                        });
+                    }, 3000);
+                });
+            }
+            
+            // 初始化图片轮播
+            setupImageCarousels();
+            
+            // 显示灯箱
+            function showLightbox() {
+                if (trainingImages.length === 0) return;
+                
+                const img = trainingImages[currentIndex];
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                updateCounter();
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            }
+            
+            // 隐藏灯箱
+            function hideLightbox() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 恢复背景滚动
+            }
+            
+            // 更新计数器
+            function updateCounter() {
+                imageCounter.textContent = `${currentIndex + 1} / ${trainingImages.length}`;
+            }
+            
+            // 上一张图片
+            function showPrevImage() {
+                if (trainingImages.length === 0) return;
+                currentIndex = (currentIndex - 1 + trainingImages.length) % trainingImages.length;
+                showLightbox();
+            }
+            
+            // 下一张图片
+            function showNextImage() {
+                if (trainingImages.length === 0) return;
+                currentIndex = (currentIndex + 1) % trainingImages.length;
+                showLightbox();
+            }
+            
+            // 事件监听器
+            closeLightbox.addEventListener('click', hideLightbox);
+            prevButton.addEventListener('click', showPrevImage);
+            nextButton.addEventListener('click', showNextImage);
+            
+            // 点击背景关闭灯箱
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    hideLightbox();
+                }
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        hideLightbox();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    }
+                }
             });
         });
     </script>
