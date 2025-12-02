@@ -57,12 +57,44 @@
             letter-spacing: 1px;
         }
 
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 0.9rem;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-left: 20px;
             transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: var(--accent);
+        }
+
+        .nav-item:hover a {
+            color: var(--accent);
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-light);
+            display: block;
+            line-height: 1.6;
+        }
+
+        .nav-chinese {
+            font-size: 1.1rem;
+        }
+
+        .nav-english {
+            font-size: 1.1rem;
+            opacity: 1;
         }
 
         .nav-links a:hover {
@@ -71,7 +103,7 @@
 
         /* --- 第一区域：个人介绍 (墨蓝背景) --- */
         .hero-section {
-            height: 100vh;
+            height: 95vh;
             background-color: var(--bg-hero);
             color: var(--text-light);
             display: flex;
@@ -253,20 +285,38 @@
     <nav>
         <a href="#personal" class="logo">孔德晖 Sam Kong. | AIdea Edu</a>
         <div class="nav-links">
-            <a href="#hero">首页 / Home</a>
-            <a href="projects/index.html">作品集 / Projects</a>
-            <a href="workshops/index.html">培训和分享 / Workshops</a>
-            <a href="study-visits/index.html">外出学习 / Study Visits</a>
-            <a href="resources/index.html">资源 / Resources</a>
-            <a href="contact/index.html">联系 / Contact</a>
+            <div class="nav-item">
+                <a href="#hero" class="nav-chinese">首页</a>
+                <a href="#hero" class="nav-english">Home</a>
+            </div>
+            <div class="nav-item">
+                <a href="projects/index.html" class="nav-chinese">作品集</a>
+                <a href="projects/index.html" class="nav-english">Projects</a>
+            </div>
+            <div class="nav-item">
+                <a href="workshops/index.html" class="nav-chinese">培训和分享</a>
+                <a href="workshops/index.html" class="nav-english">Workshops</a>
+            </div>
+            <div class="nav-item">
+                <a href="study-visits/index.html" class="nav-chinese">外出学习</a>
+                <a href="study-visits/index.html" class="nav-english">Study Visits</a>
+            </div>
+            <div class="nav-item">
+                <a href="resources/index.html" class="nav-chinese">资源</a>
+                <a href="resources/index.html" class="nav-english">Resources</a>
+            </div>
+            <div class="nav-item">
+                <a href="contact/index.html" class="nav-chinese">联系</a>
+                <a href="contact/index.html" class="nav-english">Contact</a>
+            </div>
         </div>
     </nav>
 
     <!-- 第一区域：个人介绍 (墨蓝背景) -->
     <header id="hero" class="hero-section">
-        <h1 class="hero-title">希望做一个教育科技探索者<br><span>融合 AI 与数码工具，提升学习效能</span></h1>
+        <h1 class="hero-title">做一名不断精进的教育科技探索者<br><span>融合 AI 与数码工具，提升学习效能</span></h1>
         <p class="hero-subtitle">
-    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 15px;">
+    <div style="display: flex; justify-content: center; gap: 60px; margin-bottom: 15px;">
         <img src="ADE-Signature-Plural-One-Line-Black.png" alt="Apple Distinguished Educator" style="width: auto; height: 40px;">
         <img src="APLS-Signature-Plural-One-Line-Black.png" alt="Apple Professional Learning Specialist" style="width: auto; height: 38px;">
     </div>
