@@ -27,18 +27,29 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0 5%;
+        }
+
+        main {
+            flex: 1;
         }
 
         section {
@@ -331,7 +342,7 @@
             </div>
         </nav>
     </header>
-
+    <main>
     <section id="projects">
         <div class="container">
             <h2>🚀 作品集 / Projects</h2>
@@ -377,9 +388,10 @@
             </div>
         </div>
     </section>
+    </main>
         <footer>
         <div class="container">
-            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+            &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
         </div>
     </footer>
 </body>

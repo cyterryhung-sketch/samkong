@@ -27,18 +27,29 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0 5%;
+        }
+
+        main {
+            flex: 1;
         }
 
         section {
@@ -191,12 +202,13 @@
             transform: translateY(-2px);
         }
 
+        /* --- 页脚 --- */
         footer {
             background-color: var(--bg-hero);
             color: rgba(255,255,255,0.6);
+            padding: 20px 10%;
             text-align: center;
-            padding: 20px 5%;
-            font-size: 0.85em;
+            font-size: 0.9rem;
         }
         
         /* --- 动画 Keyframes --- */
@@ -306,7 +318,7 @@
             </div>
         </nav>
     </header>
-
+    <main>
     <section id="contact">
         <div class="container">
             <h2>🤝 联系方式 / 合作</h2>
@@ -327,9 +339,10 @@
 
         </div>
     </section>
+    </main>
     <footer>
         <div class="container">
-            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+            &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
         </div>
     </footer>
 

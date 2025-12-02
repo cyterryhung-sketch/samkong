@@ -24,12 +24,23 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
         }
 
         /* --- 导航栏 (加载动画) --- */
@@ -210,16 +221,6 @@
             background-color: #ddd; /* 占位色 */
             position: relative;
         }
-        
-        /* 模拟图片内容 */
-        .card-image::after {
-            content: 'Project Image';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #666;
-        }
 
         .card-content {
             padding: 30px;
@@ -261,7 +262,7 @@
         footer {
             background-color: var(--bg-hero);
             color: rgba(255,255,255,0.6);
-            padding: 40px 10%;
+            padding: 20px 10%;
             text-align: center;
             font-size: 0.9rem;
         }
@@ -311,6 +312,7 @@
             </div>
         </div>
     </nav>
+    <main>
 
     <!-- 第一区域：个人介绍 (墨蓝背景) -->
     <header id="hero" class="hero-section">
@@ -341,13 +343,15 @@
 
         <div class="portfolio-grid">
             <!-- 作品卡片 1 -->
-            <article class="project-card">
-                <div class="card-image" style="background-color: #d4d4d4;"></div>
+            <article class="project-card" onclick="window.location='projects/Cambridge_YLE/Pre-Starters/Starters.html'" style="cursor: pointer;">
+                <div class="card-image" style="background-color: #d4d4d4;">
+                    <img src="projects/Cambridge_YLE/yle2.jpg" alt="剑桥少儿英语" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
                 <div class="card-content">
-                    <span class="card-category">Web Design</span>
-                    <h3 class="card-title">金融科技仪表盘</h3>
-                    <p class="card-desc">为现代金融初创公司设计的直观数据可视化平台，专注于用户体验与数据清晰度。</p>
-                    <a href="#" class="card-link">查看详情 &rarr;</a>
+                    <span class="card-category">Cambridge YLE</span>
+                    <h3 class="card-title">剑桥少儿英语单词练习</h3>
+                    <p class="card-desc">剑桥少儿英语Starters、Movers、Flyers各级别学习资料和练习。</p>
+                    <a href="projects/Cambridge_YLE/Pre-Starters/Starters.html" class="card-link">查看详情 &rarr;</a>
                 </div>
             </article>
 
@@ -375,8 +379,11 @@
         </div>
     </section>
 
+    </main>
     <footer>
-        <p>&copy; 2025 孔德晖 (Sam). All Rights Reserved.</p>
+        <div class="container">
+            &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
+        </div>
     </footer>
 
     <!-- 简单的 JS 用于触发滚动动画 -->

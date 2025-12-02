@@ -27,18 +27,29 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0 5%;
+        }
+
+        main {
+            flex: 1;
         }
 
         section {
@@ -407,6 +418,19 @@
             }
         }
         
+        /* --- 页脚 --- */
+        footer {
+            background-color: var(--bg-hero);
+            color: rgba(255,255,255,0.6);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        footer .container {
+            max-width: 100%;
+        }
+        
         @media screen and (max-width: 480px) {
             .container {
                 padding: 0 10px;
@@ -467,223 +491,224 @@
             </div>
         </nav>
     </header>
-
-    <section id="resources">
-        <div class="container">
+    <main>
+        <section id="resources">
+            <div class="container">
       
-            <!-- 理论分类模块 -->
-            <div class="main-content" style="margin-bottom: 30px;">
-                <!-- 左侧导航 -->
-                <aside class="sidebar">
-                    <div class="category-header collapsed" id="theory-category">
-                        理论分类
-                    </div>
-                    <ul class="subcategory-list collapsed" id="theory-subcategories">
-                        <li><a href="#theory-content" class="active">理论依据</a></li>
-                        <li><a href="#tech-content">技术原理</a></li>
-                    </ul>
-                </aside>
-                
-                <!-- 右侧内容 -->
-                <div class="content-area">
-                    <div id="theory-content">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://mp.weixin.qq.com/s?__biz=MjM5MzI4ODUzNg==&mid=2651668035&idx=1&sn=53108bfd504a00ff16f11fbb58970c61&chksm=bc9f181c4ff7a30b47bcb6a51ac20d1e831617978b61417305331bd5cba87f0597f9ec532bd1&scene=27" target="_blank">📄 《教师生成式人工智能应用指引（第一版）》</a></h4>
-                                <p>教育部教师队伍建设专家指导委员会正式发布《教师生成式人工智能应用指引（第一版）》</p>
-                            </div>
-                            
-                            <div class="content-item">
-                                <h4><a href="https://www.most.gov.cn/kjbgz/202109/t20210926_177063.html" target="_blank">📄 《新一代人工智能伦理规范》</a></h4>
-                                <p>2021年9月25日发布</p>
-                            </div>
-
-                            <div class="content-item">
-                                <h4><a href="https://unesdoc.unesco.org/ark:/48223/pf0000391104" target="_blank">📄 AI competency framework for teachers</a></h4>
-                                <p>联合国教科文组织</p>
-                            </div>
-
-                            <div class="content-item">
-                                <h4><a href="https://www.edu.cn/xxh/focus/zc/202412/t20241202_2644322.shtml" target="_blank">📄 教育部发文：2030年前中小学基本普及人工智能教育</a></h4>
-                                <p>2024年12月2日发布</p>
-                            </div>
-
-
+                <!-- 理论分类模块 -->
+                <div class="main-content" style="margin-bottom: 30px;">
+                    <!-- 左侧导航 -->
+                    <aside class="sidebar">
+                        <div class="category-header collapsed" id="theory-category">
+                            理论分类
                         </div>
-                    </div>
+                        <ul class="subcategory-list collapsed" id="theory-subcategories">
+                            <li><a href="#theory-content" class="active">理论依据</a></li>
+                            <li><a href="#tech-content">技术原理</a></li>
+                        </ul>
+                    </aside>
                     
-                    <div id="tech-content" style="display: none;">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
-                                <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
-                            </div>
-                            
-                            <div class="content-item">
-                                <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
-                                <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                    <!-- 右侧内容 -->
+                    <div class="content-area">
+                        <div id="theory-content">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://mp.weixin.qq.com/s?__biz=MjM5MzI4ODUzNg==&mid=2651668035&idx=1&sn=53108bfd504a00ff16f11fbb58970c61&chksm=bc9f181c4ff7a30b47bcb6a51ac20d1e831617978b61417305331bd5cba87f0597f9ec532bd1&scene=27" target="_blank">📄 《教师生成式人工智能应用指引（第一版）》</a></h4>
+                                    <p>教育部教师队伍建设专家指导委员会正式发布《教师生成式人工智能应用指引（第一版）》</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://www.most.gov.cn/kjbgz/202109/t20210926_177063.html" target="_blank">📄 《新一代人工智能伦理规范》</a></h4>
+                                    <p>2021年9月25日发布</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h4><a href="https://unesdoc.unesco.org/ark:/48223/pf0000391104" target="_blank">📄 AI competency framework for teachers</a></h4>
+                                    <p>联合国教科文组织</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h4><a href="https://www.edu.cn/xxh/focus/zc/202412/t20241202_2644322.shtml" target="_blank">📄 教育部发文：2030年前中小学基本普及人工智能教育</a></h4>
+                                    <p>2024年12月2日发布</p>
+                                </div>
+
+
                             </div>
                         </div>
                         
-                        <div class="content-item">
-                            <h4>📘 理论学习资料</h4>
-                            <p>提供更多关于AI在教育领域应用的理论知识和实践案例。</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 办公软件模块 -->
-            <div class="main-content">
-                <!-- 左侧导航 -->
-                <aside class="sidebar">
-                    <div class="category-header collapsed" id="software-category">
-                        办公软件技巧
-                    </div>
-                    <ul class="subcategory-list collapsed" id="software-subcategories">
-                        <li><a href="#word-content" class="active">Word 技巧</a></li>
-                        <li><a href="#excel-content">Excel 技巧</a></li>
-                        <li><a href="#ppt-content">PowerPoint 技巧</a></li>
-                        <li><a href="#windows-content">Windows 技巧</a></li>
-                        <li><a href="#mac-content">MAC 技巧</a></li>
-                    </ul>
-                </aside>
-                
-                <!-- 右侧内容 -->
-                <div class="content-area">
-                    <div id="word-content">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1T54y1673y?spm_id_from=333.788.player.player_end_recommend_autoplay&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 快速删除空白页</a></h4>
-                                <p>在 Word 文档中遇到无法删除的空白页时，可以观看下面的视频教程学习解决方法。</p>
+                        <div id="tech-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
+                                    <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="#" target="_blank">💡 大模型基础架构入门</a></h4>
+                                    <p>面向教育科技开发者，详解 Transformer 模型的工作原理。</p>
+                                </div>
                             </div>
                             
                             <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1XT4y127GY/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 邮件合并功能</a></h4>
-                                <p>可以批量生成成绩单、邀请函等，即可实现高效批量处理。</p>
+                                <h4>📘 理论学习资料</h4>
+                                <p>提供更多关于AI在教育领域应用的理论知识和实践案例。</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 办公软件模块 -->
+                <div class="main-content">
+                    <!-- 左侧导航 -->
+                    <aside class="sidebar">
+                        <div class="category-header collapsed" id="software-category">
+                            办公软件技巧
+                        </div>
+                        <ul class="subcategory-list collapsed" id="software-subcategories">
+                            <li><a href="#word-content" class="active">Word 技巧</a></li>
+                            <li><a href="#excel-content">Excel 技巧</a></li>
+                            <li><a href="#ppt-content">PowerPoint 技巧</a></li>
+                            <li><a href="#windows-content">Windows 技巧</a></li>
+                            <li><a href="#mac-content">MAC 技巧</a></li>
+                        </ul>
+                    </aside>
+                    
+                    <!-- 右侧内容 -->
+                    <div class="content-area">
+                        <div id="word-content">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1T54y1673y?spm_id_from=333.788.player.player_end_recommend_autoplay&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 快速删除空白页</a></h4>
+                                    <p>在 Word 文档中遇到无法删除的空白页时，可以观看下面的视频教程学习解决方法。</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1XT4y127GY/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 邮件合并功能</a></h4>
+                                    <p>可以批量生成成绩单、邀请函等，即可实现高效批量处理。</p>
+                                </div>
 
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1Wd4y187Gh/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 对比两份Word文档的不同之处</a></h4>
-                                <p>高效地找到两份Word文档的差异，能自动突出显示和汇总两份文档之间的所有修改。</p>
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1Wd4y187Gh/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 对比两份Word文档的不同之处</a></h4>
+                                    <p>高效地找到两份Word文档的差异，能自动突出显示和汇总两份文档之间的所有修改。</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="excel-content" style="display: none;">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV16V4y1n7Kf?spm_id_from=333.788.player.player_end_recommend&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617&trackid=web_related_0.router-related-2206146-5nk2d.1764595308089.834" target="_blank">📘 Excel图表同步到PPT</a></h4>
-                                <p>如题</p>
-                            </div>
-                            <div class="content-item">
-                                <h4><a href="https://space.bilibili.com/2017357708/lists/2876546?type=season" target="_blank">📘 Excel实用技巧合集</a></h4>
-                                <p>如题</p>
-                            </div>
+                        <div id="excel-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV16V4y1n7Kf?spm_id_from=333.788.player.player_end_recommend&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617&trackid=web_related_0.router-related-2206146-5nk2d.1764595308089.834" target="_blank">📘 Excel图表同步到PPT</a></h4>
+                                    <p>如题</p>
+                                </div>
+                                <div class="content-item">
+                                    <h4><a href="https://space.bilibili.com/2017357708/lists/2876546?type=season" target="_blank">📘 Excel实用技巧合集</a></h4>
+                                    <p>如题</p>
+                                </div>
                            
-                        </div>
-                    </div>
-                    <div id="ppt-content" style="display: none;">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://space.bilibili.com/2017357708/lists/1561187?type=season" target="_blank">📘 PPT实用技巧合集</a></h4>
-                                <p>如题</p>
                             </div>
                         </div>
-                    </div>
-                    <div id="windows-content" style="display: none;">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1LP411N7fy/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Windows快捷键</a></h4>
-                                <p>提高文件管理效率的实用技巧</p>
+                        <div id="ppt-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://space.bilibili.com/2017357708/lists/1561187?type=season" target="_blank">📘 PPT实用技巧合集</a></h4>
+                                    <p>如题</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="mac-content" style="display: none;">
-                        <div class="content-grid">
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1xu411X7fx/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac快捷键</a></h4>
-                                <p>如题</p>
-                            </div>
-                            <div class="content-item">
-                                <h4><a href="https://www.bilibili.com/video/BV1XLodYbEHF/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac购买后设置</a></h4>
-                                <p>设置完后触控板手势更舒服</p>
+                        <div id="windows-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1LP411N7fy/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Windows快捷键</a></h4>
+                                    <p>提高文件管理效率的实用技巧</p>
+                                </div>
                             </div>
                         </div>
+                        <div id="mac-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1xu411X7fx/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac快捷键</a></h4>
+                                    <p>如题</p>
+                                </div>
+                                <div class="content-item">
+                                    <h4><a href="https://www.bilibili.com/video/BV1XLodYbEHF/?spm_id_from=333.337.search-card.all.click&vd_source=0b3cdc6b1143f08b4fa44f257dbb0617" target="_blank">📘 Mac购买后设置</a></h4>
+                                    <p>设置完后触控板手势更舒服</p>
+                                </div>
+                            </div>
                        
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
     
     <footer>
         <div class="container">
-            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+            &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
         </div>
     </footer>
     
     <script>
-        // 标签切换功能
-        document.addEventListener('DOMContentLoaded', function() {
-            // 折叠菜单功能
-            const theoryCategory = document.getElementById('theory-category');
-            const theorySubcategories = document.getElementById('theory-subcategories');
-            const softwareCategory = document.getElementById('software-category');
-            const softwareSubcategories = document.getElementById('software-subcategories');
-            
-            // 默认显示每个模块的第一个标签的内容
-            document.getElementById('theory-content').style.display = 'block';
-            document.getElementById('word-content').style.display = 'block';
-            
-            // 隐藏其他内容
-            document.getElementById('tech-content').style.display = 'none';
-            
-            theoryCategory.addEventListener('click', function() {
-                theorySubcategories.classList.toggle('collapsed');
-                theoryCategory.classList.toggle('collapsed');
-            });
-            
-            softwareCategory.addEventListener('click', function() {
-                softwareSubcategories.classList.toggle('collapsed');
-                softwareCategory.classList.toggle('collapsed');
-            });
-            
-            // 原有的标签切换功能
-            const links = document.querySelectorAll('.sidebar a');
-            
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // 获取父级sidebar元素以确定属于哪个模块
-                    const parentSidebar = this.closest('.sidebar');
-                    
-                    // 只移除同模块的激活状态
-                    parentSidebar.querySelectorAll('a').forEach(l => l.classList.remove('active'));
-                    
-                    // 添加当前激活状态
-                    this.classList.add('active');
-                    
-                    // 根据所属模块隐藏对应的内容
-                    if (this.closest('#theory-subcategories')) {
-                        // 隐藏理论分类模块的所有内容
-                        document.getElementById('theory-content').style.display = 'none';
-                        document.getElementById('tech-content').style.display = 'none';
-                    } else if (this.closest('#software-subcategories')) {
-                        // 隐藏办公软件模块的所有内容
-                        document.getElementById('word-content').style.display = 'none';
-                        document.getElementById('excel-content').style.display = 'none';
-                        document.getElementById('ppt-content').style.display = 'none';
-                        document.getElementById('windows-content').style.display = 'none';
-                        document.getElementById('mac-content').style.display = 'none';
-                    }
-                    
-                    // 显示对应的内容
-                    const targetId = this.getAttribute('href').substring(1);
-                    document.getElementById(targetId).style.display = 'block';
+            // 标签切换功能
+            document.addEventListener('DOMContentLoaded', function() {
+                // 折叠菜单功能
+                const theoryCategory = document.getElementById('theory-category');
+                const theorySubcategories = document.getElementById('theory-subcategories');
+                const softwareCategory = document.getElementById('software-category');
+                const softwareSubcategories = document.getElementById('software-subcategories');
+                
+                // 默认显示每个模块的第一个标签的内容
+                document.getElementById('theory-content').style.display = 'block';
+                document.getElementById('word-content').style.display = 'block';
+                
+                // 隐藏其他内容
+                document.getElementById('tech-content').style.display = 'none';
+                
+                theoryCategory.addEventListener('click', function() {
+                    theorySubcategories.classList.toggle('collapsed');
+                    theoryCategory.classList.toggle('collapsed');
+                });
+                
+                softwareCategory.addEventListener('click', function() {
+                    softwareSubcategories.classList.toggle('collapsed');
+                    softwareCategory.classList.toggle('collapsed');
+                });
+                
+                // 原有的标签切换功能
+                const links = document.querySelectorAll('.sidebar a');
+                
+                links.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // 获取父级sidebar元素以确定属于哪个模块
+                        const parentSidebar = this.closest('.sidebar');
+                        
+                        // 只移除同模块的激活状态
+                        parentSidebar.querySelectorAll('a').forEach(l => l.classList.remove('active'));
+                        
+                        // 添加当前激活状态
+                        this.classList.add('active');
+                        
+                        // 根据所属模块隐藏对应的内容
+                        if (this.closest('#theory-subcategories')) {
+                            // 隐藏理论分类模块的所有内容
+                            document.getElementById('theory-content').style.display = 'none';
+                            document.getElementById('tech-content').style.display = 'none';
+                        } else if (this.closest('#software-subcategories')) {
+                            // 隐藏办公软件模块的所有内容
+                            document.getElementById('word-content').style.display = 'none';
+                            document.getElementById('excel-content').style.display = 'none';
+                            document.getElementById('ppt-content').style.display = 'none';
+                            document.getElementById('windows-content').style.display = 'none';
+                            document.getElementById('mac-content').style.display = 'none';
+                        }
+                        
+                        // 显示对应的内容
+                        const targetId = this.getAttribute('href').substring(1);
+                        document.getElementById(targetId).style.display = 'block';
+                    });
                 });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

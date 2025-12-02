@@ -27,18 +27,29 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0 5%;
+        }
+
+        main {
+            flex: 1;
         }
 
         section {
@@ -298,29 +309,29 @@
             </div>
         </nav>
     </header>
-
-    <section id="study-visits">
-        <div class="container">
-            <h2>🌍 外出学习 / Study Visits</h2>
-            <div class="study-content">
-                <h3>教育技术研讨会参与</h3>
-                <p>定期参加国内外教育技术创新会议，了解最新的教学方法和技术趋势。</p>
-                
-                <h3>学校交流访问</h3>
-                <p>访问各类教育机构，实地考察先进教学理念和实践经验。</p>
-                
-                <h3>专业发展课程</h3>
-                <p>持续参与在线和线下专业发展课程，不断提升自身能力。</p>
+    <main>
+        <section id="study-visits">
+            <div class="container">
+                <h2>🌍 外出学习 / Study Visits</h2>
+                <div class="study-content">
+                    <h3>教育技术研讨会参与</h3>
+                    <p>定期参加国内外教育技术创新会议，了解最新的教学方法和技术趋势。</p>
+                    
+                    <h3>学校交流访问</h3>
+                    <p>访问各类教育机构，实地考察先进教学理念和实践经验。</p>
+                    
+                    <h3>专业发展课程</h3>
+                    <p>持续参与在线和线下专业发展课程，不断提升自身能力。</p>
+                </div>
+                <div style="text-align: center;">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </div>
             </div>
-            <div style="text-align: center;">
-                <a href="../index.html" class="back-link">← 返回首页</a>
-            </div>
-        </div>
-    </section>
-    
+        </section>
+    </main>
     <footer>
         <div class="container">
-            &copy; 2025 孔德晖. All rights reserved. | Design: Gemini AI & Lingma
+            &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
         </div>
     </footer>
 </body>
