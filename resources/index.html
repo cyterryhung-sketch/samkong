@@ -205,7 +205,7 @@
             width: 180px;
             background-color: #fff;
             border-radius: 8px;
-            padding: 20px;
+            padding: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             height: fit-content;
         }
@@ -336,6 +336,11 @@
         
         .content-grid .content-item {
             align-self: start;
+        }
+        
+        /* 当导航栏折叠时，限制内容项显示数量为最多2个 */
+        .content-area.limit-items .content-grid .content-item:nth-child(n+3) {
+            display: none;
         }
         
         /* 响应式：在小屏幕上每行只显示一个项目 */
@@ -494,10 +499,84 @@
     <main>
         <section id="resources">
             <div class="container">
-      
+                <!-- AI工具模块 -->
+                <div class="main-content">
+                    <!-- 左侧导航 -->
+                    <aside class="sidebar">
+                        <div class="category-header collapsed" id="ai-tools-category">
+                            AI工具
+                        </div>
+                        <ul class="subcategory-list collapsed" id="ai-tools-subcategories">
+                            <li><a href="#image-content" class="active">图片处理</a></li>
+                            <li><a href="#music-content">AI音乐</a></li>
+                            <li><a href="#other-tools-content">其他工具</a></li>
+                        </ul>
+                    </aside>
+                    
+                    <!-- 右侧内容 -->
+                    <div class="content-area">
+                        <div id="image-content">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://www.pinterest.com/" target="_blank">🖼️ Pinterest</a></h4>
+                                    <p>灵感与创意的图片宝库。</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://www.picdoc.cn/" target="_blank">🖼️ PicDoc</a></h4>
+                                    <p>总结文本内容来生成出视觉化结构图形，高效地传达你的想法</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://www.napkin.ai/" target="_blank">🖼️ Napkin</a></h4>
+                                    <p>总结文本内容来生成出视觉化结构图形，高效地传达你的想法</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://skybox.blockadelabs.com/" target="_blank">🖼️ 文字转360度全景图</a></h4>
+                                    <p>一键生成360世界图片 Craft 360° worlds in just one click</p>
+                                </div>
+
+                                <div class="content-item">
+                                    <h4><a href="https://www.happyhues.co/" target="_blank">🖼️ Happy Hues</a></h4>
+                                    <p>配色方案</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="music-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="https://suno.com/" target="_blank">🎵 SUNO</a></h4>
+                                    <p>大名鼎鼎</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="https://ttsmaker.com/zh-cn" target="_blank">TTS Maker</a></h4>
+                                    <p>免费文字转语音工具，支持中文，英文多种口音</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="other-tools-content" style="display: none;">
+                            <div class="content-grid">
+                                <div class="content-item">
+                                    <h4><a href="#" target="_blank">🔧 其他AI工具1</a></h4>
+                                    <p>待添加的其他AI工具描述</p>
+                                </div>
+                                
+                                <div class="content-item">
+                                    <h4><a href="#" target="_blank">🔧 其他AI工具2</a></h4>
+                                    <p>待添加的其他AI工具描述</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- 理论分类模块 -->
                 <div class="main-content" style="margin-bottom: 30px;">
                     <!-- 左侧导航 -->
+                    
                     <aside class="sidebar">
                         <div class="category-header collapsed" id="theory-category">
                             理论分类
@@ -637,6 +716,8 @@
                         </div>
                     </div>
                 </div>
+                
+                
             </div>
         </section>
     </main>
@@ -655,22 +736,55 @@
                 const theorySubcategories = document.getElementById('theory-subcategories');
                 const softwareCategory = document.getElementById('software-category');
                 const softwareSubcategories = document.getElementById('software-subcategories');
+                const aiToolsCategory = document.getElementById('ai-tools-category');
+                const aiToolsSubcategories = document.getElementById('ai-tools-subcategories');
+                
+                // 获取所有内容区域
+                const theoryContentArea = theoryCategory.closest('.main-content').querySelector('.content-area');
+                const softwareContentArea = softwareCategory.closest('.main-content').querySelector('.content-area');
+                const aiToolsContentArea = aiToolsCategory.closest('.main-content').querySelector('.content-area');
+                
+                // 函数：根据导航栏的展开/折叠状态更新内容区域显示限制
+                function updateContentLimit(categoryHeader, subcategories, contentArea) {
+                    const isCollapsed = subcategories.classList.contains('collapsed');
+                    if (isCollapsed) {
+                        // 折叠状态：限制显示最多2个内容项
+                        contentArea.classList.add('limit-items');
+                    } else {
+                        // 展开状态：显示所有内容项
+                        contentArea.classList.remove('limit-items');
+                    }
+                }
                 
                 // 默认显示每个模块的第一个标签的内容
                 document.getElementById('theory-content').style.display = 'block';
                 document.getElementById('word-content').style.display = 'block';
+                document.getElementById('image-content').style.display = 'block';
                 
                 // 隐藏其他内容
                 document.getElementById('tech-content').style.display = 'none';
                 
+                // 初始化：所有导航栏默认折叠，因此限制显示
+                updateContentLimit(theoryCategory, theorySubcategories, theoryContentArea);
+                updateContentLimit(softwareCategory, softwareSubcategories, softwareContentArea);
+                updateContentLimit(aiToolsCategory, aiToolsSubcategories, aiToolsContentArea);
+                
                 theoryCategory.addEventListener('click', function() {
                     theorySubcategories.classList.toggle('collapsed');
                     theoryCategory.classList.toggle('collapsed');
+                    updateContentLimit(theoryCategory, theorySubcategories, theoryContentArea);
                 });
                 
                 softwareCategory.addEventListener('click', function() {
                     softwareSubcategories.classList.toggle('collapsed');
                     softwareCategory.classList.toggle('collapsed');
+                    updateContentLimit(softwareCategory, softwareSubcategories, softwareContentArea);
+                });
+                
+                aiToolsCategory.addEventListener('click', function() {
+                    aiToolsSubcategories.classList.toggle('collapsed');
+                    aiToolsCategory.classList.toggle('collapsed');
+                    updateContentLimit(aiToolsCategory, aiToolsSubcategories, aiToolsContentArea);
                 });
                 
                 // 原有的标签切换功能
@@ -701,11 +815,23 @@
                             document.getElementById('ppt-content').style.display = 'none';
                             document.getElementById('windows-content').style.display = 'none';
                             document.getElementById('mac-content').style.display = 'none';
+                        } else if (this.closest('#ai-tools-subcategories')) {
+                            // 隐藏AI工具模块的所有内容
+                            document.getElementById('image-content').style.display = 'none';
+                            document.getElementById('music-content').style.display = 'none';
+                            document.getElementById('other-tools-content').style.display = 'none';
                         }
                         
                         // 显示对应的内容
                         const targetId = this.getAttribute('href').substring(1);
                         document.getElementById(targetId).style.display = 'block';
+                        
+                        // 更新内容区域的显示限制
+                        const parentMainContent = parentSidebar.closest('.main-content');
+                        const parentContentArea = parentMainContent.querySelector('.content-area');
+                        const parentCategoryHeader = parentMainContent.querySelector('.category-header');
+                        const parentSubcategories = parentMainContent.querySelector('.subcategory-list');
+                        updateContentLimit(parentCategoryHeader, parentSubcategories, parentContentArea);
                     });
                 });
             });
