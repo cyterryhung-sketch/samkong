@@ -859,6 +859,9 @@
                 // 音频播放互斥功能：当一个音频开始播放时，暂停其他所有音频
                 const audios = document.querySelectorAll('audio');
                 audios.forEach(audio => {
+                    // 设置音频为单曲循环
+                    audio.loop = true;
+                    
                     audio.addEventListener('play', function() {
                         audios.forEach(otherAudio => {
                             if (otherAudio !== this && !otherAudio.paused) {
