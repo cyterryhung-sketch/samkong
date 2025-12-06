@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>外出学习 - 孔德晖</title>
+    <title>培训和分享 - 孔德晖</title>
     <!-- 引入 Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -19,6 +19,8 @@
             --color-secondary: #90EE90; /* 薄荷绿 (强调色) */
             --color-bg-light: #F8FAFC; /* 极浅灰 */
             --color-text-dark: #333333;
+            --color-pink: #ff69b4; /* 深粉红色 */
+            --color-blue: #1e90ff; /* 深蓝色 */
         }
 
         * {
@@ -27,29 +29,18 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.8;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
             margin: 0 auto;
             padding: 0 5%;
-        }
-
-        main {
-            flex: 1;
         }
 
         section {
@@ -138,23 +129,422 @@
             color: var(--accent);
         }
 
-        /* --- 外出学习内容 --- */
-        #study-visits {
+        /* --- 5. 培训模块的表格/列表 --- */
+        #workshops {
             background-color: var(--color-bg-light);
             padding: 100px 5%;
         }
 
-        .study-content {
-            background-color: var(--card-bg);
-            padding: 30px;
+        .table-professional {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .table-professional th, .table-professional td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-professional th {
+            background-color: var(--color-primary);
+            color: var(--text-light);
+            font-weight: 700;
+        }
+        
+        /* --- 年份折叠样式 --- */
+        .year-details {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background-color: #fafafa;
+        }
+        
+        .year-summary {
+            font-size: 1.5em;
+            font-weight: 600;
+            padding: 15px 20px;
+            cursor: pointer;
+            color: #333;
+            outline: none;
+            list-style: none; /* 移除默认的箭头 */
+            display: flex;
+            align-items: center;
+        }
+        
+        .year-summary::marker {
+            content: "";
+        }
+        
+        .year-summary::before {
+            content: '▶'; /* 自定义展开/收起图标 */
+            margin-right: 10px;
+            font-size: 0.8em;
+            transition: transform 0.2s;
+        }
+        
+        .year-details[open] > .year-summary::before {
+            content: '▼';
+        }
+        
+        /* --- 培训历程样式 --- */
+        .training-container {
+            max-width: 1600px;
+            margin: 00px auto 00px; /* 修改顶部边距从40px减小到20px */
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .summary-box {
+            background-color: #e9f5ff;
+            border-left: 5px solid #334155;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        
+        .summary-box p {
+            margin: 0;
+            font-size: 1.1em;
+            color: #334155;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: #000;
+        }
+        
+        /* 年份折叠样式 */
+        details {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        summary {
+            font-size: 1.5em;
+            font-weight: 600;
+            padding: 15px 20px;
+            cursor: pointer;
+            color: #333;
+            outline: none;
+            list-style: none; /* 移除默认的箭头 */
+            display: flex;
+            align-items: center;
+        }
+        
+        summary::before {
+            content: '▶'; /* 自定义展开/收起图标 */
+            margin-right: 10px;
+            font-size: 0.8em;
+            transition: transform 0.2s;
+        }
+        
+        details[open] > summary::before {
+            content: '▼';
+        }
+        
+        .training-list {
+            padding: 10px 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 每行最多三个培训内容 */
+            gap: 20px;
+            align-items: start; /* 使网格项目顶部对齐 */
         }
 
-        .study-content h3 {
-            color: var(--color-primary);
+        /* 培训卡片样式 */
+        .card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 确保卡片占满高度 */
         }
-
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 150px;
+            background-color: #e0e0e0; /* 占位符颜色 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9em;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .card-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-image-container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image-container .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-image-container .card-image:first-child {
+            opacity: 1;
+        }
+        
+        .card-image-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            z-index: 2;
+        }
+        
+        .card-image-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        
+        .card-image-indicator.active {
+            background-color: white;
+        }
+        
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-topic {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-size: 1em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        
+        .card-date {
+            font-size: 0.9em;
+            color: #777;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            background: #f7f7f7;
+            padding: 5px 8px;
+            border-radius: 4px;
+            color: #555;
+            flex-direction: column;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .info-item span:first-child {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* 对象、人数、形式信息居中对齐 */
+        .info-label {
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .info-value {
+            text-align: center;
+            width: 100%;
+        }
+        
+        /* 亮点标签样式 */
+        .highlights {
+            margin-bottom: 15px;
+            flex-grow: 1; /* 允许标签区域扩展 */
+        }
+        
+        .highlight-tag {
+            display: inline-block;
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        /* 反思/反馈样式 */
+        .outcome {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 6px;
+            font-style: italic;
+            font-size: 0.9em;
+            border-left: 4px solid #28a745;
+            margin-top: 0; /* 移除之前的自动边距 */
+            flex-grow: 1; /* 允许扩展以填充空间 */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .outcome span {
+            font-weight: bold;
+            margin-right: 5px;
+            flex-shrink: 0; /* 防止标题被压缩 */
+        }
+        
+        /* PDF课件下载链接样式 */
+        .pdf-download {
+            display: inline-block;
+            background-color: #f0f8ff;
+            color: #334155;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid #bee5eb;
+            transition: all 0.3s;
+            align-self: flex-start; /* 左对齐 */
+        }
+        
+        .pdf-download:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        
+        /* 图片灯箱样式 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .close-lightbox:hover {
+            color: #ccc;
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            font-size: 18px;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .prev-button {
+            left: 20px;
+        }
+        
+        .next-button {
+            right: 20px;
+        }
+        
+        .image-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+        }
+        
         /* --- 返回首页按钮 --- */
         .back-link {
             display: inline-block;
@@ -189,12 +579,199 @@
             transform: translateY(-2px);
         }
         
+        /* --- 页脚 --- */
         footer {
             background-color: var(--bg-hero);
             color: rgba(255,255,255,0.6);
+            padding: 20px 10%;
             text-align: center;
-            padding: 20px 0;
             font-size: 0.9rem;
+        }
+
+        
+        /* 月份时间轴样式 */
+        .month-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 0;
+            position: relative;
+        }
+        
+        .month-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #334155;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .month-item {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .month-dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #ccc; /* 默认灰色 */
+            border-radius: 50%;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            top: 0; /* 居中在线上 */
+            z-index: 2; /* 确保点在横线上方 */
+        }
+        
+        /* 有培训的月份显示深粉红色 */
+        .month-dot.has-training {
+            background-color: var(--color-pink);
+        }
+        
+        .month-dot:hover {
+            background-color: var(--color-blue);
+            transform: scale(1.2);
+        }
+        
+        /* 当鼠标悬停在月份项目上时，圆点变色 */
+        .month-item:hover .month-dot {
+            background-color: var(--color-blue);
+            transform: scale(1.2);
+        }
+        
+        .month-label {
+            font-size: 0.9em;
+            color: #334155;
+            transition: color 0.3s;
+        }
+        
+        .month-item:hover .month-label {
+            color: var(--color-blue);
+        }
+        
+        /* 月份弹窗样式 */
+        .month-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            display: none;
+            z-index: 10;
+        }
+        
+        .month-popup ul {
+            padding-left: 0;
+            margin: 0;
+            text-align: left;
+            list-style: none;
+        }
+        
+        .month-popup li {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            padding: 5px;
+        }
+        
+        .month-popup li:hover {
+            background-color: #f0f8ff;
+            border-radius: 4px;
+        }
+        
+        .month-popup a {
+            text-decoration: none;
+            color: #334155;
+            display: block;
+        }
+        
+        .month-item:hover .month-popup {
+            display: block;
+        }
+        
+        /* 回到时间轴按钮 */
+        .back-to-timeline {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: none;
+            font-size: 0.9em;
+        }
+        
+        .back-to-timeline:hover {
+            background-color: var(--color-blue);
+        }
+        
+        /* 锚点样式 */
+        .month-section {
+            scroll-margin-top: 80px;
+        }
+        
+        /* 文字云样式 */
+        .wordcloud-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .wordcloud-title {
+            font-size: 1.8em;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .wordcloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .wordcloud-word {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #e0e0e0;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .wordcloud-word:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .word-large {
+            font-size: 1.8em;
+        }
+        
+        .word-medium {
+            font-size: 1.4em;
+        }
+        
+        .word-small {
+            font-size: 1.1em;
         }
         
         /* --- 动画 Keyframes --- */
@@ -236,20 +813,15 @@
                 justify-content: center;
             }
             
-            .nav-item {
-                margin: 5px;
-            }
-            
-            .nav-chinese {
+            .nav-links a {
+                padding: 8px 10px;
                 font-size: 0.9em;
+                min-width: 70px;
             }
             
-            .nav-english {
-                font-size: 0.9em;
-            }
-            
-            .study-content {
-                padding: 20px 15px;
+            .training-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
         
@@ -262,17 +834,14 @@
                 font-size: 1.7em;
             }
             
-            .nav-item {
+            .nav-links a {
                 min-width: 60px;
-                margin: 3px;
+                font-size: 0.8em;
+                padding: 6px 5px;
             }
             
-            .nav-chinese {
-                font-size: 0.8em;
-            }
-            
-            .nav-english {
-                font-size: 0.8em;
+            .training-container {
+                padding: 20px 15px;
             }
         }
     </style>
@@ -309,26 +878,48 @@
             </div>
         </nav>
     </header>
-    <main>
-        <section id="study-visits">
-            <div class="container">
-                <h2>🌍 外出学习 / Study Visits</h2>
-                <div class="study-content">
-                    <h3>教育技术研讨会参与</h3>
-                    <p>定期参加国内外教育技术创新会议，了解最新的教学方法和技术趋势。</p>
+
+    <section id="workshops">
+        <div class="container">
+            <div class="training-container">
+                
+               
                     
-                    <h3>学校交流访问</h3>
-                    <p>访问各类教育机构，实地考察先进教学理念和实践经验。</p>
-                    
-                    <h3>专业发展课程</h3>
-                    <p>持续参与在线和线下专业发展课程，不断提升自身能力。</p>
-                </div>
-                <div style="text-align: center;">
-                    <a href="../index.html" class="back-link">← 返回首页</a>
-                </div>
+                    <div class="training-list">
+                        <div class="card month-section" id="december">
+                            <div class="card-image-container">
+                                <div class="card-image">
+                                    <img src="20251206_云谷.jpg" alt="杭州云谷培训-1" style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-topic">杭州云谷培训</div>
+                                <div class="card-subtitle">杭州云谷学校</div>
+                                <div class="card-date">🗓️ 2025.12.05</div>
+
+                                <div class="highlights">
+                                    <span class="highlight-tag">目标性和主动性</span>
+                                    <span class="highlight-tag">梅赐琪</span>
+                                    <span class="highlight-tag">批判性思维</span>
+                                </div>
+
+                                <div class="outcome">
+                                    <span>💭 培训反思：</span>批判性思维真的重要，去魅更重要。
+                                </div>
+                                
+                                <!-- PDF课件下载链接占位 -->
+                                <a href="20251206_云谷_英语差异化教学研讨.pdf" class="pdf-download" target="_blank">📄 英语差异化教学笔记(PDF)</a>
+                            </div>
+                        </div>
+
+                        
+                </details>
+                
+                
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+    
     <footer>
         <div class="container">
             &copy; 2025 孔德晖. All rights reserved. | Designed & Built by: Sam & Gemini AI & Lingma
